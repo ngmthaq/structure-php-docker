@@ -1,0 +1,19 @@
+{
+    "name": "ngmthaq/php",
+    "description": "PHP Composer Nodejs Nginx",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nguyen Manh Thang",
+            "email": "nguyenmanhthang2000.fb@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
