@@ -4,15 +4,16 @@ services:
     container_name: nginx
     build: ./docker/nginx/
     command: nginx -g "daemon off;"
+    depends_on:
+      - php-service
     links:
       - php-service
     ports:
       - "80:80"
     volumes:
-      - ./www/:/var/www/html
+      - ./www/:/var/www/html/
   php-service:
     container_name: php
     build: ./docker/php
     volumes:
-      - ./www/:/var/www/html
-    working_dir: /var/www/html
+      - ./www/:/var/www/html/
