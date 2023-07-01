@@ -1,6 +1,8 @@
 <?php
 
+use Dotenv\Dotenv;
 use Src\Helpers\Dev;
+use Src\Helpers\Dir;
 use Src\Helpers\Session;
 use Src\Router\Routes;
 
@@ -13,6 +15,12 @@ require_once("../vendor/autoload.php");
  * Start session
  */
 Session::start();
+
+/**
+ * Enviroment variables
+ */
+$dotenv = Dotenv::createImmutable(Dir::getRootDir());
+$dotenv->load();
 
 /**
  * Register routes

@@ -1,1 +1,6 @@
 /www/vendor/
+/www/.env
+/www/.env.*
+!/www/.env.example
+/www/src/Cached/**/*
+!/www/src/Cached/.gitkeep

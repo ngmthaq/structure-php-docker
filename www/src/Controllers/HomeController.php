@@ -6,11 +6,11 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        return $this->sendJson(["hello" => "World"], 200);
+        return $this->sendJson(["hello" => "World"]);
     }
 
     public function home()
     {
-        echo "home";
+        return $this->renderView("home");
     }
 }

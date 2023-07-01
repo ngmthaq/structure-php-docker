@@ -2,6 +2,9 @@
 
 namespace Src\Controllers;
 
+use eftec\bladeone\BladeOne;
+use Src\Helpers\Dir;
+
 abstract class BaseController
 {
     /**
@@ -31,12 +34,33 @@ abstract class BaseController
      * 
      * @param array $data
      * @param int $status
+     * @return void
      */
-    protected function sendJson(array $data, int $status)
+    protected function sendJson(array $data, int $status = 200)
     {
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
         echo json_encode($data);
+        exit();
+    }
+
+    /**
+     * Render view using template engine (BladeOne)
+     * 
+     * @param string $view
+     * @param array $data
+     * @param int $status
+     * @return void
+     */
+    protected function renderView(string $view, array $data = [], int $status = 200)
+    {
+        http_response_code($status);
+        $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
+        if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
+        $view_dir = Dir::getDirFromSrc("/Views");
+        $blade = new BladeOne($view_dir, $cached_view_dir, BladeOne::MODE_DEBUG);
+        $blade->pipeEnable=true;
+        echo $blade->run($view, $data);
         exit();
     }
 
