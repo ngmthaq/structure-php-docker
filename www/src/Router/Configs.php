@@ -55,11 +55,11 @@ abstract class Configs
      */
     public function getRoute(string $endpoint, string $request_method = "GET")
     {
-        list($route) = array_values(array_filter($this->routes, function ($route) use ($endpoint, $request_method) {
+        $routes = array_values(array_filter($this->routes, function ($route) use ($endpoint, $request_method) {
             extract($route);
             return $path === $endpoint && $method === $request_method;
         }));
-        return isset($route) ? $route : null;
+        return count($routes) > 0 ? $routes[0] : null;
     }
 
     /**

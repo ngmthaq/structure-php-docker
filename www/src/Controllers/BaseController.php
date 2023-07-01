@@ -5,22 +5,22 @@ namespace Src\Controllers;
 use eftec\bladeone\BladeOne;
 use Src\Helpers\Dir;
 
-abstract class BaseController
+class BaseController
 {
     /**
      * Processed $_GET array
      */
-    protected array $params;
+    public array $params;
 
     /**
      * Processed $_POST array
      */
-    protected array $inputs;
+    public array $inputs;
 
     /**
      * Processed $_FILES array
      */
-    protected array $files;
+    public array $files;
 
     public function __construct()
     {
@@ -36,7 +36,7 @@ abstract class BaseController
      * @param int $status
      * @return void
      */
-    protected function sendJson(array $data, int $status = 200)
+    public function sendJson(array $data, int $status = 200)
     {
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
@@ -52,7 +52,7 @@ abstract class BaseController
      * @param int $status
      * @return void
      */
-    protected function renderView(string $view, array $data = [], int $status = 200)
+    public function renderView(string $view, array $data = [], int $status = 200)
     {
         http_response_code($status);
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");

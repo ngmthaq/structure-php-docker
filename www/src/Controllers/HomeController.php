@@ -2,6 +2,8 @@
 
 namespace Src\Controllers;
 
+use Error;
+
 class HomeController extends BaseController
 {
     public function index()
