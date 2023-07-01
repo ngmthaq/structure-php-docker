@@ -34,7 +34,7 @@ try {
     if ($route) {
         extract($route);
         $controller_instance = new $controller();
-        $controller_instance->$action();
+        call_user_func(array($controller_instance, $action));
     } else {
         // 404 Not Found
         $controller_instance = new BaseController();
@@ -42,6 +42,7 @@ try {
     }
 } catch (\Throwable $th) {
     // 500 Server Internal Error
+    Dev::console($th->getMessage(), "error");
     $controller_instance = new BaseController();
     $controller_instance->renderView("errors.500");
 }
