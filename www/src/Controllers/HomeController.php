@@ -6,7 +6,7 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        echo "index";
+        return $this->sendJson(["hello" => "World"], 200);
     }
 
     public function home()
