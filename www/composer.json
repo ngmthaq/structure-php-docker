@@ -15,5 +15,8 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "eftec/bladeone": "4.9",
+        "vlucas/phpdotenv": "5.5.0"
+    }
 }
