@@ -12,6 +12,12 @@ use Src\Router\Routes;
  */
 require_once("../vendor/autoload.php");
 
+
+/**
+ * Import configs file
+ */
+require_once("../src/conf.php");
+
 try {
     /**
      * Start session

@@ -13,6 +13,6 @@ class HomeController extends BaseController
 
     public function home()
     {
-        return $this->renderView("home");
+        return $this->renderView("pages.home");
     }
 }

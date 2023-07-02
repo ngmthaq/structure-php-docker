@@ -4,4 +4,4 @@
 !/www/.env.example
 /www/src/Cached/**/*
 !/www/src/Cached/.gitkeep
-/www/public/node_modules
+/www/public/libs
