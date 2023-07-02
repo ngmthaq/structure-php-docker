@@ -29,7 +29,9 @@ try {
      */
     $routes = new Routes();
     $routes->register();
-    $route = $routes->getRoute($routes->getCurrentUri(), $routes->getCurrentRequestMethod());
+    $uri = $routes->getCurrentUri();
+    $method = $routes->getCurrentRequestMethod();
+    $route = $routes->getRoute($uri, $method);
 
     if ($route) {
         extract($route);

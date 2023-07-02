@@ -1,0 +1,17 @@
+{
+  "name": "ngmthaq_php",
+  "version": "1.0.0",
+  "description": "PHP Composer Nodejs Nginx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Nguyen Manh Thang",
+    "email": "nguyenmanhthang2000.fb@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5"
+  }
+}
