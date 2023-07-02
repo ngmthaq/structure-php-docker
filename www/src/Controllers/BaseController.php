@@ -3,7 +3,15 @@
 namespace Src\Controllers;
 
 use eftec\bladeone\BladeOne;
+use Src\Helpers\Common;
+use Src\Helpers\Cookies;
+use Src\Helpers\Dev;
 use Src\Helpers\Dir;
+use Src\Helpers\Hash;
+use Src\Helpers\Header;
+use Src\Helpers\Number;
+use Src\Helpers\Session;
+use Src\Helpers\Str;
 
 class BaseController
 {
@@ -59,7 +67,16 @@ class BaseController
         if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
         $view_dir = Dir::getDirFromSrc("/Views");
         $blade = new BladeOne($view_dir, $cached_view_dir, BladeOne::MODE_DEBUG);
-        $blade->pipeEnable=true;
+        $blade->pipeEnable = true;
+        $blade->addAliasClasses("Common", Common::class);
+        $blade->addAliasClasses("Cookies", Cookies::class);
+        $blade->addAliasClasses("Dev", Dev::class);
+        $blade->addAliasClasses("Dir", Dir::class);
+        $blade->addAliasClasses("Hash", Hash::class);
+        $blade->addAliasClasses("Header", Header::class);
+        $blade->addAliasClasses("Number", Number::class);
+        $blade->addAliasClasses("Session", Session::class);
+        $blade->addAliasClasses("Str", Str::class);
         echo $blade->run($view, $data);
         exit();
     }
