@@ -44,7 +44,7 @@ class BaseController
      * @param int $status
      * @return void
      */
-    public function sendJson(array $data, int $status = 200)
+    public function sendJson(array $data, int $status = STT_OK)
     {
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
@@ -60,7 +60,7 @@ class BaseController
      * @param int $status
      * @return void
      */
-    public function renderView(string $view, array $data = [], int $status = 200)
+    public function renderView(string $view, array $data = [], int $status = STT_OK)
     {
         http_response_code($status);
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");

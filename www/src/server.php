@@ -46,11 +46,11 @@ try {
     } else {
         // 404 Not Found
         $controller_instance = new BaseController();
-        $controller_instance->renderView("errors.404");
+        $controller_instance->renderView("errors.404", [], STT_NOT_FOUND);
     }
 } catch (\Throwable $th) {
     // 500 Server Internal Error
     Dev::console($th->getMessage(), "error");
     $controller_instance = new BaseController();
-    $controller_instance->renderView("errors.500");
+    $controller_instance->renderView("errors.500", [], STT_INTERNAL_SERVER_ERROR);
 }

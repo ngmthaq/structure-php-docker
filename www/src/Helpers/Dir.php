@@ -55,6 +55,6 @@ final class Dir
      */
     public static function assets(string $path)
     {
-        return "./" . $path . "?t=" . time();
+        return "/" . $path . "?t=" . time();
     }
 }

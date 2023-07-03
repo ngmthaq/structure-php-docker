@@ -33,7 +33,7 @@ abstract class Configs
      * Register a POST route
      * 
      * @param array $configs
-     * @example array("path" => "/", "controller" => Controller::class, "action" => "action")
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action"]
      * @return void
      */
     public function post(array $configs)
