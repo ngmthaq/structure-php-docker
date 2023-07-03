@@ -14,4 +14,8 @@ define("STT_UNAUTHORIZED", 401);
 define("STT_FORBIDDEN", 403);
 define("STT_NOT_FOUND", 404);
 define("STT_INTERNAL_SERVER_ERROR", 500);
-define("SERVICE_UNAVAILABLE", 503);
+define("STT_SERVICE_UNAVAILABLE", 503);
+
+// Log status
+define("LOG_STATUS_INFO", "INFO");
+define("LOG_STATUS_ERROR", "ERROR");

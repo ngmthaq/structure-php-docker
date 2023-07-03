@@ -63,6 +63,7 @@ class BaseController
     public function renderView(string $view, array $data = [], int $status = STT_OK)
     {
         http_response_code($status);
+        header("Content-Type: text/html; charset=utf-8");
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
         if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
         $view_dir = Dir::getDirFromSrc("/Views");

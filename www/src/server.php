@@ -50,7 +50,8 @@ try {
     }
 } catch (\Throwable $th) {
     // 500 Server Internal Error
-    Dev::console($th->getMessage(), "error");
+    $log_message = $th->getMessage() . " at line " . $th->getLine() . " in file " . $th->getFile();
+    Dev::writeLog($log_message, "error", LOG_STATUS_ERROR);
     $controller_instance = new BaseController();
     $controller_instance->renderView("errors.500", [], STT_INTERNAL_SERVER_ERROR);
 }
