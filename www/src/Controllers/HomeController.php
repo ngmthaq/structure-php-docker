@@ -10,8 +10,8 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $conn = new PDO('mysql:host=172.30.0.5:3306;dbname=php', "root", "root");
+        $conn = new PDO('mysql:host=mysql-service;dbname=php;port=3306', "root", "root");
+        $this->renderView("pages.home");
         Dev::console($conn);
-        return $this->renderView("pages.home");
     }
 }

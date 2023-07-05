@@ -39,11 +39,13 @@ class Dev
      */
     public static function console(mixed $output, string $type = "log")
     {
-        $output = json_encode($output, JSON_HEX_TAG);
-        $code = "console.$type($output);";
-        $code = "<script>" . $code . "</script>";
-        echo $code;
-        echo PHP_EOL;
+        if ($_ENV["APP_ENV"] !== "production") {
+            $output = json_encode($output, JSON_HEX_TAG);
+            $code = "console.$type($output);";
+            $code = "<script>" . $code . "</script>";
+            echo $code;
+            echo PHP_EOL;
+        }
     }
 
     public static function writeLog(string $message, string $file_name, string $status = LOG_STATUS_INFO)

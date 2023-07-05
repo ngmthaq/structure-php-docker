@@ -6,3 +6,4 @@
 !/www/src/Cached/.gitkeep
 /www/public/libs
 .env
+/docker/nginx/log

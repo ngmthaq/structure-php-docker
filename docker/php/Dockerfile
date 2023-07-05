@@ -4,9 +4,7 @@ USER root
 
 RUN apt update -y
 
-RUN apt install git -y
-
-RUN apt install zip unzip -y
+RUN apt install git zip unzip libmariadb-dev -y
 
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 

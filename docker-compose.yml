@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   nginx-service:
     container_name: nginx
@@ -8,8 +7,6 @@ services:
     command: nginx -g "daemon off;"
     depends_on:
       - php-service
-    links:
-      - php-service
     ports:
       - 8000:80
     volumes:
@@ -17,22 +14,20 @@ services:
       - ./docker/nginx/log:/var/log/nginx/
     networks:
       - www
-
   php-service:
     container_name: php
     build: ./docker/php
-    restart: always
     volumes:
       - ./www/:/var/www/html/
     ports:
       - 9000:9000
     networks:
       - www
-
   mysql-service:
     container_name: mysql
     build: ./docker/mysql
     restart: always
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - database:/var/lib/mysql/
     networks:
@@ -41,31 +36,24 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - php-service
-
+      - nginx-service
   phpmyadmin-service:
     container_name: phpmyadmin
     build: ./docker/phpmyadmin
     depends_on:
+      - php-service
       - mysql-service
+      - nginx-service
     restart: always
     ports:
       - "8001:80"
     environment:
-      PMA_HOST: mysql-service
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-      PMA_USER: ${MYSQL_USER}
-      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      - PMA_ARBITRARY=1
     networks:
       - www
-
-networks:
-  www:
-
-
 volumes:
   database:
+networks:
+  www:
