@@ -14,7 +14,6 @@ final class Routes extends Configs
     public function registerGetRoutes()
     {
         $this->get(["path" => "/", "controller" => HomeController::class, "action" => "index"]);
-        $this->get(["path" => "/home", "controller" => HomeController::class, "action" => "home"]);
     }
 
     /**

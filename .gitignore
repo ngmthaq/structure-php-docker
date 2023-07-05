@@ -5,3 +5,4 @@
 /www/src/Cached/**/*
 !/www/src/Cached/.gitkeep
 /www/public/libs
+.env

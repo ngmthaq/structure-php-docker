@@ -3,16 +3,15 @@
 namespace Src\Controllers;
 
 use Error;
+use PDO;
+use Src\Helpers\Dev;
 
 class HomeController extends BaseController
 {
     public function index()
     {
-        return $this->sendJson(["hello" => "World"]);
-    }
-
-    public function home()
-    {
+        $conn = new PDO('mysql:host=172.30.0.5:3306;dbname=php', "root", "root");
+        Dev::console($conn);
         return $this->renderView("pages.home");
     }
 }
