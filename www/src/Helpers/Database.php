@@ -3,6 +3,7 @@
 namespace Src\Helpers;
 
 use PDO;
+use PDOStatement;
 
 class Database
 {
@@ -124,5 +125,23 @@ class Database
     public function rollBack()
     {
         return $this->conn->rollBack();
+    }
+
+    /**
+     * Prepare execute
+     * 
+     * @return PDOStatement|null
+     */
+    public function execute()
+    {
+        $statment = $this->conn->prepare($this->sql);
+        if ($statment) {
+            foreach ($this->params as $param) {
+                $statment->bindParam($param["binding"], $param["value"], $param["type"]);
+            }
+            $statment->execute();
+            return $statment;
+        }
+        return null;
     }
 }
