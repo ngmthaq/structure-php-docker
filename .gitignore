@@ -1,9 +1,9 @@
-/web/vendor/
-/web/.env
-/web/.env.*
-!/web/.env.example
-/web/src/Cached/**/*
-!/web/src/Cached/.gitkeep
-/web/public/libs
+/vendor/
+/.env
+/.env.*
+!/.env.example
+/src/Cached/**/*
+!/src/Cached/.gitkeep
+/public/libs
 .env
 /docker/nginx/log

@@ -12,7 +12,7 @@ final class Dir
     public static function getRootDir()
     {
         $unix_path = str_replace("\\", "/", __DIR__);
-        $root_path = str_replace("/web/src/Helpers", "", $unix_path);
+        $root_path = str_replace("/src/Helpers", "", $unix_path);
         return $root_path;
     }
 
@@ -23,7 +23,7 @@ final class Dir
      */
     public static function getWorkspaceDir()
     {
-        return self::getRootDir() . "/web";
+        return self::getRootDir();
     }
 
     /**
