@@ -10,7 +10,7 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./www/:/var/www/html/
+      - ./:/var/www/html/
       - ./docker/nginx/log:/var/log/nginx/
     networks:
       - www
@@ -18,7 +18,7 @@ services:
     container_name: php
     build: ./docker/php
     volumes:
-      - ./www/:/var/www/html/
+      - ./:/var/www/html/
     ports:
       - 9000:9000
     networks:
@@ -35,7 +35,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - php-service
       - nginx-service

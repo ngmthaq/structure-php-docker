@@ -12,8 +12,18 @@ final class Dir
     public static function getRootDir()
     {
         $unix_path = str_replace("\\", "/", __DIR__);
-        $root_path = str_replace("/src/Helpers", "", $unix_path);
+        $root_path = str_replace("/web/src/Helpers", "", $unix_path);
         return $root_path;
+    }
+
+    /**
+     * Get workspace directory
+     * 
+     * @return string
+     */
+    public static function getWorkspaceDir()
+    {
+        return self::getRootDir() . "/web";
     }
 
     /**
@@ -23,8 +33,9 @@ final class Dir
      */
     public static function getPublicDir()
     {
-        return self::getRootDir() . "/public";
+        return self::getWorkspaceDir() . "/public";
     }
+
 
     /**
      * Get src directory
@@ -33,7 +44,7 @@ final class Dir
      */
     public static function getSrcDir()
     {
-        return self::getRootDir() . "/src";
+        return self::getWorkspaceDir() . "/src";
     }
 
     /**
