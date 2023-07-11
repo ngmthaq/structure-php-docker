@@ -7,6 +7,8 @@ use PDOStatement;
 
 class Database
 {
+    public const GLOBAL_KEY = "__DATABASE_GLOBAL_KEY__";
+
     /**
      * Database host
      */

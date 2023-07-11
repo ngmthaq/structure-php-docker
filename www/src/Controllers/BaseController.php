@@ -5,6 +5,7 @@ namespace Src\Controllers;
 use eftec\bladeone\BladeOne;
 use Src\Helpers\Common;
 use Src\Helpers\Cookies;
+use Src\Helpers\Database;
 use Src\Helpers\Dev;
 use Src\Helpers\Dir;
 use Src\Helpers\Hash;
@@ -26,15 +27,22 @@ class BaseController
     public array $inputs;
 
     /**
+     * Database instance
+     */
+    public Database $db;
+
+    /**
      * Processed $_FILES array
      */
     public array $files;
 
     public function __construct()
     {
+        $this->db = new Database();
         $this->params = $this->prepareArray($_GET);
         $this->inputs = $this->prepareArray($_POST);
         $this->files = $_FILES;
+        $GLOBALS[Database::GLOBAL_KEY] = $this->db;
     }
 
     /**
