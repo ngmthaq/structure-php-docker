@@ -39,14 +39,19 @@ class Migration
      * 
      * @return void
      */
-    public function run()
+    public function run(bool $is_run_all_queries = false)
     {
         try {
             $this->db->begin();
             foreach ($this->queries as $query) {
-                if ($query["version"] === $this->version) {
+                if ($is_run_all_queries) {
                     $this->db->setSql($query["sql"]);
                     $this->db->execute();
+                } else {
+                    if ($query["version"] === $this->version) {
+                        $this->db->setSql($query["sql"]);
+                        $this->db->execute();
+                    }
                 }
             }
             $this->db->commit();
