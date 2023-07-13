@@ -7,5 +7,5 @@
 @section('keywords', 'PHP')
 
 @section('base-content')
-    <h1>Homepage</h1>
+    <h1>Hello {{ isset($user) ? $user->name : 'Guest' }}</h1>
 @endsection

@@ -2,6 +2,10 @@
 
 namespace Src\Models\Base;
 
-class BaseModel
+abstract class BaseModel
 {
+    public function __construct()
+    {
+        //
+    }
 }

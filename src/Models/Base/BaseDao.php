@@ -4,7 +4,7 @@ namespace Src\Models\Base;
 
 use Src\Helpers\Database;
 
-class BaseDao
+abstract class BaseDao
 {
     protected Database $db;
 

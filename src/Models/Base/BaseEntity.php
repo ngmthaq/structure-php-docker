@@ -2,6 +2,10 @@
 
 namespace Src\Models\Base;
 
-class BaseEntity
+abstract class BaseEntity
 {
+    public function __construct()
+    {
+        //
+    }
 }

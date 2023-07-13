@@ -116,6 +116,7 @@ class Database
      */
     public function commit()
     {
+        if (!$this->conn->inTransaction()) return false;
         return $this->conn->commit();
     }
 
@@ -126,6 +127,7 @@ class Database
      */
     public function rollBack()
     {
+        if (!$this->conn->inTransaction()) return false;
         return $this->conn->rollBack();
     }
 
