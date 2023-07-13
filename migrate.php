@@ -20,7 +20,7 @@ Dotenv::createImmutable(Dir::getRootDir())->load();
 $migration = new Migration();
 
 // Set migration version
-$migration->setVersion(2);
+$migration->setVersion(3);
 
 /** =============== Queries =================== */
 
