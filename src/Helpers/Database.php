@@ -106,6 +106,7 @@ class Database
      */
     public function begin()
     {
+        Dev::writeLog("BEGIN_TRANSACTION", "db", LOG_STATUS_INFO);
         return $this->conn->beginTransaction();
     }
 
@@ -117,6 +118,7 @@ class Database
     public function commit()
     {
         if (!$this->conn->inTransaction()) return false;
+        Dev::writeLog("COMMIT_TRANSACTION", "db", LOG_STATUS_INFO);
         return $this->conn->commit();
     }
 
@@ -128,6 +130,7 @@ class Database
     public function rollBack()
     {
         if (!$this->conn->inTransaction()) return false;
+        Dev::writeLog("ROLL_BACK_TRANSACTION", "db", LOG_STATUS_INFO);
         return $this->conn->rollBack();
     }
 
@@ -138,14 +141,20 @@ class Database
      */
     public function execute()
     {
-        $statment = $this->conn->prepare($this->sql);
-        if ($statment) {
-            foreach ($this->params as $param) {
-                $statment->bindParam($param["binding"], $param["value"], $param["type"]);
+        try {
+            DEV::writeLog("SQL: " . $this->sql . ", params: " . json_encode($this->params), "db", LOG_STATUS_INFO);
+            $stm = $this->conn->prepare($this->sql);
+            if ($stm) {
+                foreach ($this->params as $param) {
+                    $stm->bindParam($param["binding"], $param["value"], $param["type"]);
+                }
+                $stm->execute();
+                return $stm;
             }
-            $statment->execute();
-            return $statment;
+            return null;
+        } catch (\Throwable $th) {
+            Dev::writeLog("SQL: " . $this->sql . ", params: " . json_encode($this->params) . "Error: " . $th->getMessage(), "db", LOG_STATUS_ERROR);
+            throw $th;
         }
-        return null;
     }
 }
