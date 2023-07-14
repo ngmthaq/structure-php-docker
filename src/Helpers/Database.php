@@ -143,9 +143,13 @@ class Database
     {
         try {
             DEV::writeLog("SQL: " . $this->sql . ", params: " . json_encode($this->params), "db", LOG_STATUS_INFO);
-            $stm = $this->conn->prepare($this->sql);
+            $sql = $this->sql;
+            $params = $this->params;
+            $this->sql = "";
+            $this->params = [];
+            $stm = $this->conn->prepare($sql);
             if ($stm) {
-                foreach ($this->params as $param) {
+                foreach ($params as $param) {
                     $stm->bindParam($param["binding"], $param["value"], $param["type"]);
                 }
                 $stm->execute();

@@ -3,6 +3,7 @@
 namespace Src\Controllers;
 
 use eftec\bladeone\BladeOne;
+use Src\Helpers\Auth;
 use Src\Helpers\Common;
 use Src\Helpers\Cookies;
 use Src\Helpers\Database;
@@ -76,6 +77,7 @@ class BaseController
         $view_dir = Dir::getDirFromSrc("/Views");
         $blade = new BladeOne($view_dir, $cached_view_dir, BladeOne::MODE_DEBUG);
         $blade->pipeEnable = true;
+        $blade->addAliasClasses("Auth", Auth::class);
         $blade->addAliasClasses("Common", Common::class);
         $blade->addAliasClasses("Cookies", Cookies::class);
         $blade->addAliasClasses("Dev", Dev::class);
@@ -86,6 +88,27 @@ class BaseController
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
         echo $blade->run($view, $data);
+    }
+
+    /**
+     * Redirect
+     * 
+     * @param string $path
+     * @return void
+     */
+    public function redirect(string $path)
+    {
+        header("Location: " . $path);
+    }
+
+    /**
+     * Reload
+     * 
+     * @return void
+     */
+    public function reload()
+    {
+        header("Refresh:0");
     }
 
     /**

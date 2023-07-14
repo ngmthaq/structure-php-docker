@@ -14,6 +14,7 @@ final class Routes extends Configs
     public function registerGetRoutes()
     {
         $this->get(["path" => "/", "controller" => HomeController::class, "action" => "index"]);
+        $this->get(["path" => "/login", "controller" => HomeController::class, "action" => "login"]);
     }
 
     /**
@@ -23,7 +24,8 @@ final class Routes extends Configs
      */
     public function registerPostRoutes()
     {
-        //
+        $this->post(["path" => "/login", "controller" => HomeController::class, "action" => "attempt"]);
+        $this->post(["path" => "/logout", "controller" => HomeController::class, "action" => "logout"]);
     }
 
     public function register()

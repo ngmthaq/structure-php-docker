@@ -7,5 +7,8 @@
 @section('keywords', 'PHP')
 
 @section('base-content')
-    <h1>Hello {{ isset($user) ? $user->name : 'Guest' }}</h1>
+    <h1>Hello {{ Auth::user()->name }}</h1>
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
 @endsection

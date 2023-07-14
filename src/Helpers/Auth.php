@@ -14,7 +14,7 @@ class Auth
      * 
      * @return UserEntity|null
      */
-    public static function getUser()
+    public static function user()
     {
         try {
             $user_uid = null;
@@ -43,7 +43,7 @@ class Auth
      */
     public static function check()
     {
-        $user = self::getUser();
+        $user = self::user();
         return isset($user);
     }
 
