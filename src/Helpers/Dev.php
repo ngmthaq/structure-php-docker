@@ -54,7 +54,8 @@ class Dev
         if (!file_exists($log_dir)) mkdir($log_dir);
         $date = gmdate("Y_m_d");        // UTC
         $time = time();                 // Unix Timestamp
-        $full_message = "[$time][$status][user]: $message";
+        $user = Cookies::get(Auth::AUTH_KEY) ?? "GUEST";
+        $full_message = "[$time][$status][$user]: $message";
         $full_file_name = "$file_name" . "_$date.log";
         $full_path = $log_dir . "/" . $full_file_name;
         file_put_contents($full_path, $full_message . "\n", FILE_APPEND);

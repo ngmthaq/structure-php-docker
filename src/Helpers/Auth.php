@@ -63,9 +63,9 @@ class Auth
             if (!$user) return false;
             if (!Hash::check($password, $user->password)) return false;
             if ($is_remember) {
-                Cookies::set(self::AUTH_KEY, $user->uid);
+                Cookies::set(self::AUTH_KEY, $user->uid, time() + (86400 * 30));
             } else {
-                Session::set(self::AUTH_KEY, $user->uid);
+                Cookies::set(self::AUTH_KEY, $user->uid);
             }
             return true;
         } catch (\Throwable $th) {
@@ -83,7 +83,6 @@ class Auth
     {
         try {
             Cookies::remove(self::AUTH_KEY);
-            Session::delete(self::AUTH_KEY);
             return true;
         } catch (\Throwable $th) {
             Dev::writeLog($th->getMessage(), "error", LOG_STATUS_ERROR);
