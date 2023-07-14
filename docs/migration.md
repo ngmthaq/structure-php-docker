@@ -14,5 +14,6 @@ Format of changelog:
 
 ## Version 2
 
-1. Update `users` table, add `password` column.
-2. Update `users` table, add `remember_token` column.
+1. Update `users` table, add `email` column.
+2. Update `users` table, add `password` column.
+3. Update `users` table, add `remember_token` column.

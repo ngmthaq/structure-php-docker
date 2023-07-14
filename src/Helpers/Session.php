@@ -15,4 +15,40 @@ class Session
         session_name($name);
         session_start();
     }
+
+    /**
+     * Set session data
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return bool
+     */
+    public static function set(string $key, mixed $value)
+    {
+        $_SESSION[$key] = $value;
+        return true;
+    }
+
+    /**
+     * Get session data
+     * 
+     * @param string $key
+     * @return mixed
+     */
+    public static function get(string $key)
+    {
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
+    }
+
+    /**
+     * Delete session data
+     * 
+     * @param string $key
+     * @return bool
+     */
+    public static function delete(string $key)
+    {
+        unset($_SESSION[$key]);
+        return true;
+    }
 }

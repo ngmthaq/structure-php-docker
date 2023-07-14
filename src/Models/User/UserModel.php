@@ -23,4 +23,9 @@ class UserModel extends BaseModel
     {
         return $this->user_dao->findOneByUid($uid);
     }
+
+    public function findOneByEmail(string $uid)
+    {
+        return $this->user_dao->findOneByEmail($uid);
+    }
 }

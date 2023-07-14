@@ -8,6 +8,7 @@ class UserEntity extends BaseEntity
 {
     public string $uid;
     public string $name;
+    public string $email;
     public string $password;
     public string|null $remember_token;
     public int $created_at;
@@ -18,6 +19,7 @@ class UserEntity extends BaseEntity
         parent::__construct();
         $this->uid = $user["uid"];
         $this->name = $user["name"];
+        $this->email = $user["email"];
         $this->password = $user["password"];
         $this->remember_token = $user["remember_token"];
         $this->created_at = $user["created_at"];

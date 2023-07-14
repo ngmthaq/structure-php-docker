@@ -36,14 +36,17 @@ $migration->query("CREATE TABLE IF NOT EXISTS users (
     PRIMARY KEY (uid)
 )", 1);
 
-$migration->query("ALTER TABLE users ADD password VARCHAR(255) NOT NULL AFTER name", 2);
+$migration->query("ALTER TABLE users ADD email VARCHAR(255) UNIQUE NOT NULL AFTER name", 2);
+
+$migration->query("ALTER TABLE users ADD password VARCHAR(255) NOT NULL AFTER email", 2);
 
 $migration->query("ALTER TABLE users ADD remember_token VARCHAR(255) AFTER password", 2);
 
-$migration->query("INSERT INTO `users` (`uid`, `name`, `password`, `remember_token`, `created_at`, `updated_at`) 
+$migration->query("INSERT INTO `users` (`uid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) 
     VALUES (
         '993bcf91-e209-4e1c-8b72-54ffde2b3a1d',
         'Nguyễn Mạnh Thắng',
+        'admin@gmail.com',
         'bb6a3d082a55bf08c99e496195148324',
         NULL,
         '1689243617',

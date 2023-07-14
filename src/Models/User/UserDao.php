@@ -31,4 +31,14 @@ class UserDao extends BaseDao
         if (!$raw_user) return null;
         return new UserEntity($raw_user);
     }
+
+    public function findOneByEmail(string $email): UserEntity | null
+    {
+        $this->db->setSql("SELECT * FROM users WHERE email = :email");
+        $this->db->setParam(":email", $email, PDO::PARAM_STR);
+        $stm = $this->db->execute();
+        $raw_user = $stm->fetch();
+        if (!$raw_user) return null;
+        return new UserEntity($raw_user);
+    }
 }
