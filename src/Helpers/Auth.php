@@ -7,8 +7,6 @@ use Src\Models\User\UserEntity;
 
 class Auth
 {
-    public const AUTH_KEY = "AUTH_KEY";
-
     /**
      * Get auth user
      * 
@@ -18,8 +16,8 @@ class Auth
     {
         try {
             $user_uid = null;
-            $session_key = Session::get(self::AUTH_KEY);
-            $cookie_key = Cookies::get(self::AUTH_KEY);
+            $session_key = Session::get(AUTH_KEY);
+            $cookie_key = Cookies::get(AUTH_KEY);
             if (isset($session_key)) {
                 $user_uid = $session_key;
             } elseif (isset($cookie_key)) {
@@ -63,9 +61,9 @@ class Auth
             if (!$user) return false;
             if (!Hash::check($password, $user->password)) return false;
             if ($is_remember) {
-                Cookies::set(self::AUTH_KEY, $user->uid, time() + (86400 * 30));
+                Cookies::set(AUTH_KEY, $user->uid, time() + (86400 * 30));
             } else {
-                Cookies::set(self::AUTH_KEY, $user->uid);
+                Cookies::set(AUTH_KEY, $user->uid);
             }
             return true;
         } catch (\Throwable $th) {
@@ -82,7 +80,7 @@ class Auth
     public static function logout()
     {
         try {
-            Cookies::remove(self::AUTH_KEY);
+            Cookies::remove(AUTH_KEY);
             return true;
         } catch (\Throwable $th) {
             Dev::writeLog($th->getMessage(), "error", LOG_STATUS_ERROR);

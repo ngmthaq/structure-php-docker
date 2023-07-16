@@ -26,9 +26,12 @@ class HomeController extends BaseController
     public function attempt()
     {
         $this->runMiddlewares([GuestMiddleware::class, LoginMiddleware::class]);
+
         extract($this->inputs);
+
         if (Auth::login($email, $password, isset($this->inputs["is_remember"]))) {
-            $this->redirect($this->inputs["back_url"] ?? "/");
+            $back_url = $this->inputs["back_url"];
+            $this->redirect($back_url === "" ? "/" : $back_url);
         } else {
             Session::setFlashMessage("email", "Email hoặc mật khẩu không chính xác");
             $this->reload();

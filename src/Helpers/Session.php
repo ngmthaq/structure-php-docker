@@ -4,8 +4,6 @@ namespace Src\Helpers;
 
 class Session
 {
-    public const FLASH_MESSAGE_KEY = "FLASH_MESSAGE_KEY";
-
     /**
      * Start session
      * 
@@ -63,6 +61,6 @@ class Session
      */
     public static function setFlashMessage(string $key, string $value)
     {
-        $_SESSION[self::FLASH_MESSAGE_KEY][$key] = $value;
+        $_SESSION[FLASH_MESSAGE_KEY][$key] = $value;
     }
 }

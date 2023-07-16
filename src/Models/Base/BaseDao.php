@@ -10,6 +10,6 @@ abstract class BaseDao
 
     public function __construct()
     {
-        $this->db = $GLOBALS[Database::GLOBAL_KEY];
+        $this->db = $GLOBALS[DATABASE_GLOBAL_KEY];
     }
 }

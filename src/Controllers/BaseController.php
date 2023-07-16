@@ -14,6 +14,7 @@ use Src\Helpers\Header;
 use Src\Helpers\Number;
 use Src\Helpers\Session;
 use Src\Helpers\Str;
+use Src\Helpers\Lang;
 
 class BaseController
 {
@@ -43,7 +44,10 @@ class BaseController
         $this->params = $this->prepareArray($_GET);
         $this->inputs = $this->prepareArray($_POST);
         $this->files = $_FILES;
-        $GLOBALS[Database::GLOBAL_KEY] = $this->db;
+        $GLOBALS[DATABASE_GLOBAL_KEY] = $this->db;
+        if (isset($this->params["lang"])) {
+            Cookies::set(LOCALE_KEY, $this->params["lang"]);
+        }
     }
 
     /**
@@ -84,13 +88,14 @@ class BaseController
         $blade->addAliasClasses("Dir", Dir::class);
         $blade->addAliasClasses("Hash", Hash::class);
         $blade->addAliasClasses("Header", Header::class);
+        $blade->addAliasClasses("Lang", Lang::class);
         $blade->addAliasClasses("Number", Number::class);
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
         $flash_messages = [];
-        if (isset($_SESSION[Session::FLASH_MESSAGE_KEY])) {
-            $flash_messages = $_SESSION[Session::FLASH_MESSAGE_KEY];
-            unset($_SESSION[Session::FLASH_MESSAGE_KEY]);
+        if (isset($_SESSION[FLASH_MESSAGE_KEY])) {
+            $flash_messages = $_SESSION[FLASH_MESSAGE_KEY];
+            unset($_SESSION[FLASH_MESSAGE_KEY]);
         }
         $additional_data = ["params" => $this->params, "flash_messages" => $flash_messages];
         $data = array_merge($data, $additional_data);

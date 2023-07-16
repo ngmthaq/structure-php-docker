@@ -4,7 +4,7 @@
 define("AUTHOR", "ngmthaq");
 define("COUNTRY", "Viet Nam");
 define("STREET_ADDRESS", "Phu Do, Nam Tu Liem, Ha Noi");
-define("LOCALE", "en");
+define("LOCALE", "vi");
 
 // HTTP Response code
 define("STT_OK", 200);
@@ -19,3 +19,9 @@ define("STT_SERVICE_UNAVAILABLE", 503);
 // Log status
 define("LOG_STATUS_INFO", "INFO");
 define("LOG_STATUS_ERROR", "ERROR");
+
+// Key
+define("AUTH_KEY", "__AUTH_KEY__");
+define("DATABASE_GLOBAL_KEY", "__DATABASE_GLOBAL_KEY__");
+define("LOCALE_KEY", "__LOCALE_KEY__");
+define("FLASH_MESSAGE_KEY", "__FLASH_MESSAGE_KEY__");
