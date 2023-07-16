@@ -51,13 +51,13 @@ class Dev
     public static function writeLog(string $message, string $file_name, string $status = LOG_STATUS_INFO)
     {
         $log_dir = Dir::getDirFromSrc("/Cached/Logs");
-        if (!file_exists($log_dir)) mkdir($log_dir);
+        if (!file_exists($log_dir)) mkdir($log_dir, 0777, true);
         $date = gmdate("Y_m_d");        // UTC
         $time = time();                 // Unix Timestamp
         $user = Cookies::get(Auth::AUTH_KEY) ?? "GUEST";
         $full_message = "[$time][$status][$user]: $message";
         $full_file_name = "$file_name" . "_$date.log";
         $full_path = $log_dir . "/" . $full_file_name;
-        file_put_contents($full_path, $full_message . "\n", FILE_APPEND);
+        file_put_contents($full_path, $full_message . "\n", FILE_APPEND | LOCK_EX);
     }
 }
