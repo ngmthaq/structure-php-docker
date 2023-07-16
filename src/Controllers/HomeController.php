@@ -18,7 +18,11 @@ class HomeController extends BaseController
 
     public function login()
     {
-        $this->renderView("pages.login");
+        if (Auth::check()) {
+            $this->redirect("/");
+        } else {
+            $this->renderView("pages.login");
+        }
     }
 
     public function attempt()
