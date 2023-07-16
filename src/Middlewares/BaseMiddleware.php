@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Middlewares\Global;
+namespace Src\Middlewares;
 
 use Src\Controllers\BaseController;
 

@@ -87,7 +87,13 @@ class BaseController
         $blade->addAliasClasses("Number", Number::class);
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
-        $data = array_merge($data, ["params" => $this->params]);
+        $flash_messages = [];
+        if (isset($_SESSION[Session::FLASH_MESSAGE_KEY])) {
+            $flash_messages = $_SESSION[Session::FLASH_MESSAGE_KEY];
+            unset($_SESSION[Session::FLASH_MESSAGE_KEY]);
+        }
+        $additional_data = ["params" => $this->params, "flash_messages" => $flash_messages];
+        $data = array_merge($data, $additional_data);
         echo $blade->run($view, $data);
     }
 
