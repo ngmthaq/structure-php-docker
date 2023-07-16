@@ -4,32 +4,28 @@ namespace Src\Controllers;
 
 use Src\Helpers\Auth;
 use Src\Helpers\Dev;
+use Src\Middlewares\Global\AuthMiddleware;
+use Src\Middlewares\Global\GuestMiddleware;
 
 class HomeController extends BaseController
 {
     public function index()
     {
-        if (Auth::check()) {
-            $this->renderView("pages.home");
-        } else {
-            $this->redirect("/login");
-        }
+        $this->runMiddlewares([AuthMiddleware::class]);
+        $this->renderView("pages.home");
     }
 
     public function login()
     {
-        if (Auth::check()) {
-            $this->redirect("/");
-        } else {
-            $this->renderView("pages.login");
-        }
+        $this->runMiddlewares([GuestMiddleware::class]);
+        $this->renderView("pages.login");
     }
 
     public function attempt()
     {
         extract($this->inputs);
         if (Auth::login($email, $password, isset($this->inputs["is_remember"]))) {
-            $this->redirect("/");
+            $this->redirect($this->inputs["back_url"] ?? "/");
         } else {
             $this->reload();
         }

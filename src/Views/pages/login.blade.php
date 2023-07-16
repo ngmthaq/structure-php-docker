@@ -9,6 +9,7 @@
 @section('base-content')
     <form action="/login" method="post">
         <h1>Login</h1>
+        <input type="hidden" name="back_url" value="{{ $params['back_url'] }}">
         <input type="email" name="email" id="email" placeholder="Email" required><br>
         <input type="password" name="password" id="password" placeholder="Password" required><br>
         <input type="checkbox" name="is_remember" id="is_remember">

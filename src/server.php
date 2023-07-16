@@ -25,7 +25,7 @@ try {
     Session::start();
 
     /**
-     * Enviroment variables
+     * Environment variables
      */
     $dotenv = Dotenv::createImmutable(Dir::getRootDir());
     $dotenv->load();

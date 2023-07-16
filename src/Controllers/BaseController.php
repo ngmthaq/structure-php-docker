@@ -87,6 +87,7 @@ class BaseController
         $blade->addAliasClasses("Number", Number::class);
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
+        $data = array_merge($data, ["params" => $this->params]);
         echo $blade->run($view, $data);
     }
 
@@ -94,11 +95,14 @@ class BaseController
      * Redirect
      * 
      * @param string $path
+     * @param array $params
      * @return void
      */
-    public function redirect(string $path)
+    public function redirect(string $path, array $params = [])
     {
-        header("Location: " . $path);
+        $query_parameters = http_build_query($params);
+        $query_parameters = $query_parameters === "" ? "" : "?" . $query_parameters;
+        header("Location: " . $path .  $query_parameters);
     }
 
     /**
@@ -112,12 +116,38 @@ class BaseController
     }
 
     /**
+     * Run middlewares
+     * 
+     * @param array $middlewares
+     * @return void
+     */
+    public function runMiddlewares(array $middlewares)
+    {
+        if (count($middlewares) > 0) {
+            $middleware = array_shift($middlewares);
+            $middleware_instance = new $middleware();
+            call_user_func(array($middleware_instance, "handle"));
+            $this->runMiddlewares($middlewares);
+        }
+    }
+
+    /**
+     * Get full url
+     * 
+     * @return string
+     */
+    public function getFullUrl()
+    {
+        return (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+    /**
      * Prepare array
      * 
      * @param array $array
      * @return array
      */
-    private function prepareArray(array $array)
+    public function prepareArray(array $array)
     {
         $output = [];
         foreach ($array as $key => $value) {
