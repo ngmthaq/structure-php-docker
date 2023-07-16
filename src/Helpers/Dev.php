@@ -55,7 +55,8 @@ class Dev
         $date = gmdate("Y_m_d");        // UTC
         $time = time();                 // Unix Timestamp
         $user = Cookies::get(AUTH_KEY) ?? "GUEST";
-        $full_message = "[$time][$status][$user]: $message";
+        $uri = $_SERVER["REQUEST_URI"];
+        $full_message = "[$time][$status][$user][$uri]: $message";
         $full_file_name = "$file_name" . "_$date.log";
         $full_path = $log_dir . "/" . $full_file_name;
         file_put_contents($full_path, $full_message . "\n", FILE_APPEND | LOCK_EX);
