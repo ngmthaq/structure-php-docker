@@ -8,7 +8,7 @@ class CorsMiddleware extends BaseMiddleware
 {
     public function handle(): void
     {
-        if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+        if (IS_ENABLE_CORS && $_SERVER["REQUEST_METHOD"] === "OPTIONS") {
             $this->res->sendPreLight();
             exit();
         } else {
