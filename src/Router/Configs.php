@@ -3,7 +3,6 @@
 namespace Src\Router;
 
 use Exception;
-use Src\Helpers\Dev;
 
 abstract class Configs
 {

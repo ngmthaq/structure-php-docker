@@ -8,6 +8,11 @@ class CorsMiddleware extends BaseMiddleware
 {
     public function handle(): void
     {
-        $this->next();
+        if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+            $this->res->sendPreLight();
+            exit();
+        } else {
+            $this->next();
+        }
     }
 }

@@ -2,19 +2,20 @@
 
 namespace Src\Middlewares;
 
+use Src\Helpers\Request;
+use Src\Helpers\Response;
+
 abstract class BaseMiddleware
 {
-    protected array $params;
-    protected array $inputs;
-    protected array $files;
     protected mixed $next_function;
+    protected Request $req;
+    protected Response $res;
 
     public function __construct(mixed $next_function)
     {
-        $this->params               =   $GLOBALS[REQUEST_GLOBAL_KEY]["params"];
-        $this->inputs               =   $GLOBALS[REQUEST_GLOBAL_KEY]["inputs"];
-        $this->files                =   $GLOBALS[REQUEST_GLOBAL_KEY]["files"];
-        $this->next_function        =   $next_function;
+        $this->next_function = $next_function;
+        $this->req = new Request();
+        $this->res = new Response();
     }
 
     protected function next()

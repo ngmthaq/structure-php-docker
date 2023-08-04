@@ -7,7 +7,7 @@
 @section('keywords', 'PHP')
 
 @section('base-content')
-    <h1>{{ Lang::t('hello') }} {{ Auth::user()->name }}</h1>
+    <h1>{{ __('hello') }} {{ Auth::user()->name }}</h1>
     <form action="/logout" method="post">
         <button type="submit">Logout</button>
     </form>
