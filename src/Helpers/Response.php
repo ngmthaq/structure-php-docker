@@ -35,6 +35,12 @@ class Response
         header("Content-Type: application/json; charset=utf-8");
     }
 
+    public function sendUnavailableStatus()
+    {
+        http_response_code(STT_SERVICE_UNAVAILABLE);
+        header("Content-Type: application/json; charset=utf-8");
+    }
+
     /**
      * Render view using template engine (BladeOne)
      * 

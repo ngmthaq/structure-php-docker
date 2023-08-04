@@ -29,3 +29,7 @@ define("REQUEST_GLOBAL_KEY", "__REQUEST_GLOBAL_KEY__");
 
 // CORS
 define("IS_ENABLE_CORS", 1);
+
+// Throttle
+define("THROTTLE_LIMIT_PER_MINUTE", 6);
+define("THROTTLE_SESSION_KEY", "__THROTTLE_SESSION_KEY__");
