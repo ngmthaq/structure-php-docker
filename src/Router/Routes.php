@@ -3,9 +3,19 @@
 namespace Src\Router;
 
 use Src\Controllers\HomeController;
+use Src\Middlewares\CorsMiddleware;
+use Src\Middlewares\ThrottleMiddleware;
 
 final class Routes extends Configs
 {
+    public function registerGlobalMiddlewares()
+    {
+        return [
+            CorsMiddleware::class,
+            ThrottleMiddleware::class,
+        ];
+    }
+
     /**
      * Register routes with GET method
      * 

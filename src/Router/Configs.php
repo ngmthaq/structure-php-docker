@@ -16,7 +16,7 @@ abstract class Configs
      * Register a GET route
      * 
      * @param array $configs
-     * @example ["path" => "/", "controller" => Controller::class, "action" => "action"]
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action", "middlewares" => []]
      * @return void
      */
     public function get(array $configs)
@@ -25,15 +25,16 @@ abstract class Configs
         if (empty($controller)) throw new Exception("Controller not found");
         if (empty($action)) throw new Exception("Action not found");
         if (empty($path)) throw new Exception("Path not found");
+        if (empty($middlewares)) $middlewares = [];
         $method = "GET";
-        $this->routes[] = compact("path", "controller", "action", "method");
+        $this->routes[] = compact("path", "controller", "action", "method", "middlewares");
     }
 
     /**
      * Register a POST route
      * 
      * @param array $configs
-     * @example ["path" => "/", "controller" => Controller::class, "action" => "action"]
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action", "middlewares" => []]
      * @return void
      */
     public function post(array $configs)
@@ -42,8 +43,9 @@ abstract class Configs
         if (empty($controller)) throw new Exception("Controller not found");
         if (empty($action)) throw new Exception("Action not found");
         if (empty($path)) throw new Exception("Path not found");
+        if (empty($middlewares)) $middlewares = [];
         $method = "POST";
-        $this->routes[] = compact("path", "controller", "action", "method");
+        $this->routes[] = compact("path", "controller", "action", "method", "middlewares");
     }
 
     /**

@@ -40,11 +40,19 @@ class BaseController
 
     public function __construct()
     {
-        $this->db = new Database();
-        $this->params = $this->prepareArray($_GET);
-        $this->inputs = $this->prepareArray($_POST);
-        $this->files = $_FILES;
+        $this->db       =   new Database();
+        $this->params   =   $this->prepareArray($_GET);
+        $this->inputs   =   $this->prepareArray($_POST);
+        $this->files    =   $_FILES;
+
         $GLOBALS[DATABASE_GLOBAL_KEY] = $this->db;
+
+        $GLOBALS[REQUEST_GLOBAL_KEY] = [
+            "params"    =>      $this->params,
+            "inputs"    =>      $this->inputs,
+            "files"     =>      $this->files
+        ];
+
         if (isset($this->params["lang"])) {
             Cookies::set(LOCALE_KEY, $this->params["lang"]);
         }
@@ -59,9 +67,11 @@ class BaseController
      */
     public function sendJson(array $data, int $status = STT_OK)
     {
+        echo json_encode($data);
+        $output = ob_get_clean();
         http_response_code($status);
         header("Content-Type: application/json; charset=utf-8");
-        echo json_encode($data);
+        echo $output;
     }
 
     /**
@@ -74,8 +84,6 @@ class BaseController
      */
     public function renderView(string $view, array $data = [], int $status = STT_OK)
     {
-        http_response_code($status);
-        header("Content-Type: text/html; charset=utf-8");
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
         if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
         $view_dir = Dir::getDirFromSrc("/Views");
@@ -100,6 +108,10 @@ class BaseController
         $additional_data = ["params" => $this->params, "flash_messages" => $flash_messages];
         $data = array_merge($data, $additional_data);
         echo $blade->run($view, $data);
+        $output = ob_get_clean();
+        http_response_code($status);
+        header("Content-Type: text/html; charset=utf-8");
+        echo $output;
     }
 
     /**
@@ -124,22 +136,6 @@ class BaseController
     public function reload()
     {
         header("Refresh:0");
-    }
-
-    /**
-     * Run middlewares
-     * 
-     * @param array $middlewares
-     * @return void
-     */
-    public function runMiddlewares(array $middlewares)
-    {
-        if (count($middlewares) > 0) {
-            $middleware = array_shift($middlewares);
-            $middleware_instance = new $middleware();
-            call_user_func(array($middleware_instance, "handle"));
-            $this->runMiddlewares($middlewares);
-        }
     }
 
     /**
