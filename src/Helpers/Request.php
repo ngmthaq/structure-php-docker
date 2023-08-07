@@ -2,17 +2,21 @@
 
 namespace Src\Helpers;
 
+use Src\Models\User\UserEntity;
+
 class Request
 {
     protected array $params;
     protected array $inputs;
     protected array $files;
+    protected UserEntity|null $user;
 
     public function __construct()
     {
         $this->params   =   $this->prepareArray($_GET);
         $this->inputs   =   $this->prepareArray($_POST);
         $this->files    =   $_FILES;
+        $this->user     =   Auth::user();
     }
 
     public function getParams(string $key = "*")
@@ -40,6 +44,11 @@ class Request
     public function getFiles()
     {
         return $this->files;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 
     public function prepareArray(array $array)

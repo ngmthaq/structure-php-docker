@@ -3,7 +3,9 @@
 namespace Src\Router;
 
 use Src\Controllers\HomeController;
+use Src\Middlewares\AuthMiddleware;
 use Src\Middlewares\CorsMiddleware;
+use Src\Middlewares\GuestMiddleware;
 use Src\Middlewares\ThrottleMiddleware;
 
 final class Routes extends Configs
@@ -23,8 +25,19 @@ final class Routes extends Configs
      */
     public function registerGetRoutes()
     {
-        $this->get(["path" => "/", "controller" => HomeController::class, "action" => "index"]);
-        $this->get(["path" => "/login", "controller" => HomeController::class, "action" => "login"]);
+        $this->get([
+            "path" => "/",
+            "controller" => HomeController::class,
+            "action" => "index",
+            "middlewares" => [AuthMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/login",
+            "controller" => HomeController::class,
+            "action" => "login",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
     }
 
     /**
@@ -34,8 +47,19 @@ final class Routes extends Configs
      */
     public function registerPostRoutes()
     {
-        $this->post(["path" => "/login", "controller" => HomeController::class, "action" => "attempt"]);
-        $this->post(["path" => "/logout", "controller" => HomeController::class, "action" => "logout"]);
+        $this->post([
+            "path" => "/login",
+            "controller" => HomeController::class,
+            "action" => "attempt",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/logout",
+            "controller" => HomeController::class,
+            "action" => "logout",
+            "middlewares" => [AuthMiddleware::class],
+        ]);
     }
 
     public function register()
