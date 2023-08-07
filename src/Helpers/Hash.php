@@ -37,6 +37,8 @@ class Hash
      */
     public static function rowFenceEncrypt($input, $key = 0, $padding = "=")
     {
+        if ($input === null) throw new \Exception("Input cannot be null");
+        if ($key < 0) throw new \Exception("Key cannot be null");
         if ($input === "") return array("output" => "", "key" => $key);
 
         $text_length = strlen($input);
@@ -72,6 +74,8 @@ class Hash
      */
     public static function rowFenceDecrypt($input, $key, $padding = "=")
     {
+        if (empty($input)) throw new \Exception("Input cannot be null");
+        if (empty($key)) throw new \Exception("Key cannot be null");
         $text_length = strlen($input);
         $array_text = str_split($input);
         $columns = round($text_length / $key);
