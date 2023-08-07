@@ -57,7 +57,8 @@ class Dev
         $user = Cookies::get(AUTH_KEY) ?? "GUEST";
         $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : null;
         $uri = isset($uri) ? $uri : $_SERVER["SCRIPT_FILENAME"];
-        $full_message = preg_replace('/\s+/S', " ", "[$time][$status][$user][$uri]: $message");
+        $method = $_SERVER["REQUEST_METHOD"] ?? "NULL";
+        $full_message = preg_replace('/\s+/S', " ", "[$time][$status][$user][$method][$uri]: $message");
         $full_file_name = "$file_name" . "_$date.log";
         $full_path = $log_dir . "/" . $full_file_name;
         file_put_contents($full_path, $full_message . "\n", FILE_APPEND | LOCK_EX);
