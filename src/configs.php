@@ -29,8 +29,5 @@ define("REQUEST_GLOBAL_KEY", "__REQUEST_GLOBAL_KEY__");
 define("THROTTLE_SESSION_KEY", "__THROTTLE_SESSION_KEY__");
 define("XSRF_KEY", "XSRF_TOKEN");
 
-// CORS
-define("IS_ENABLE_CORS", 0);
-
 // Throttle
 define("THROTTLE_LIMIT_PER_MINUTE", 60);
