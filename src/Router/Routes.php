@@ -7,6 +7,7 @@ use Src\Middlewares\AuthMiddleware;
 use Src\Middlewares\CorsMiddleware;
 use Src\Middlewares\GuestMiddleware;
 use Src\Middlewares\ThrottleMiddleware;
+use Src\Middlewares\XsrfMiddleware;
 
 final class Routes extends Configs
 {
@@ -15,6 +16,7 @@ final class Routes extends Configs
         return [
             CorsMiddleware::class,
             ThrottleMiddleware::class,
+            XsrfMiddleware::class,
         ];
     }
 

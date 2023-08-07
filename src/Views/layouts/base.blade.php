@@ -8,6 +8,7 @@
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
     <meta name="author" content="{{ AUTHOR }}">
+    <meta name="{{ XSRF_KEY }}" content="{{ $_SESSION[XSRF_KEY] }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="@yield('title')">
     <meta property="og:url" content="@yield('url')">
