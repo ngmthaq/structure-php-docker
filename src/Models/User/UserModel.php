@@ -16,16 +16,18 @@ class UserModel extends BaseModel
 
     public function getAll()
     {
-        return $this->user_dao->getAll();
+        return array_map(function ($raw_user) {
+            return new UserEntity($raw_user);
+        }, $this->user_dao->getAll());
     }
 
     public function findOneByUid(string $uid)
     {
-        return $this->user_dao->findOneByUid($uid);
+        return new UserEntity($this->user_dao->findOneByUid($uid));
     }
 
     public function findOneByEmail(string $email)
     {
-        return $this->user_dao->findOneByEmail($email);
+        return new UserEntity($this->user_dao->findOneByEmail($email));
     }
 }

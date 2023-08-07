@@ -16,29 +16,26 @@ class UserDao extends BaseDao
     {
         $this->db->setSql("SELECT * FROM users");
         $stm = $this->db->execute();
-        $raw_users = $stm->fetchAll();
-        return array_map(function ($raw_user) {
-            return new UserEntity($raw_user);
-        }, $raw_users);
+        return $stm->fetchAll();
     }
 
-    public function findOneByUid(string $uid): UserEntity | null
+    public function findOneByUid(string $uid): array | null
     {
         $this->db->setSql("SELECT * FROM users WHERE uid = :uid");
         $this->db->setParam(":uid", $uid, PDO::PARAM_STR);
         $stm = $this->db->execute();
         $raw_user = $stm->fetch();
         if (!$raw_user) return null;
-        return new UserEntity($raw_user);
+        return $raw_user;
     }
 
-    public function findOneByEmail(string $email): UserEntity | null
+    public function findOneByEmail(string $email): array | null
     {
         $this->db->setSql("SELECT * FROM users WHERE email = :email");
         $this->db->setParam(":email", $email, PDO::PARAM_STR);
         $stm = $this->db->execute();
         $raw_user = $stm->fetch();
         if (!$raw_user) return null;
-        return new UserEntity($raw_user);
+        return $raw_user;
     }
 }
