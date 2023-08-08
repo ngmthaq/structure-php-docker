@@ -55,6 +55,10 @@ class Dev
         $date = gmdate("Y_m_d");        // UTC
         $time = time();                 // Unix Timestamp
         $user = Cookies::get(AUTH_KEY) ?? "GUEST";
+        if ($user !== "GUEST") {
+            $auth = json_decode($user, true);
+            $user = Hash::rowFenceDecrypt($auth["output"], $auth["key"]);
+        }
         $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : null;
         $uri = isset($uri) ? $uri : $_SERVER["SCRIPT_FILENAME"];
         $method = $_SERVER["REQUEST_METHOD"] ?? "NULL";
