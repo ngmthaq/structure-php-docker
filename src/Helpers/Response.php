@@ -42,14 +42,14 @@ class Response
     }
 
     /**
-     * Render view using template engine (BladeOne)
+     * Get view HTML using template engine (BladeOne)
      * 
      * @param string $view
      * @param array $data
      * @param int $status
-     * @return void
+     * @return string
      */
-    public function renderView(string $view, array $data = [], int $status = STT_OK)
+    public function getViewHtml(string $view, array $data = []): string
     {
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
         if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
@@ -76,6 +76,12 @@ class Response
         $data = array_merge($data, $additional_data);
         echo $blade->run($view, $data);
         $output = ob_get_clean();
+        return gettype($output) === "string" ? $output : "";
+    }
+
+    public function renderView(string $view, array $data = [], int $status = STT_OK): void
+    {
+        $output = $this->getViewHtml($view, $data);
         http_response_code($status);
         header("Content-Type: text/html; charset=utf-8");
         echo $output;

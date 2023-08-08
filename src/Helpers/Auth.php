@@ -22,6 +22,8 @@ class Auth
                 $auth = $session_key;
             } elseif (isset($cookie_key)) {
                 $auth = $cookie_key;
+            } elseif (isset($GLOBALS[AUTH_KEY])) {
+                $auth = $GLOBALS[AUTH_KEY];
             }
             if (empty($auth)) return null;
             $auth = json_decode($auth, true);
@@ -64,11 +66,13 @@ class Auth
             if (!Hash::check($password, $user->password)) return false;
             $hash_key = random_int(2, 16);
             $auth = Hash::rowFenceEncrypt($user->uid, $hash_key);
+            $json = json_encode($auth);
             if ($is_remember) {
-                Cookies::set(AUTH_KEY, json_encode($auth), time() + (86400 * 30));
+                Cookies::set(AUTH_KEY, $json, time() + (86400 * 30));
             } else {
-                Cookies::set(AUTH_KEY, json_encode($auth));
+                Cookies::set(AUTH_KEY, $json);
             }
+            $GLOBALS[AUTH_KEY] = $json;
             return true;
         } catch (\Throwable $th) {
             Dev::writeLog($th->getMessage(), "error", LOG_STATUS_ERROR);
