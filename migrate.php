@@ -16,7 +16,7 @@ use Dotenv\Dotenv;
 use Src\Helpers\Dir;
 use Src\Helpers\Migration;
 
-require_once("./src/conf.php");
+require_once("./src/configs.php");
 require_once("./vendor/autoload.php");
 
 Dotenv::createImmutable(Dir::getRootDir())->load();
@@ -24,7 +24,7 @@ Dotenv::createImmutable(Dir::getRootDir())->load();
 $migration = new Migration();
 
 // Set migration version
-$migration->setVersion(2);
+$migration->setVersion(3);
 
 /** =============== Queries =================== */
 
@@ -52,6 +52,15 @@ $migration->query("INSERT INTO `users` (`uid`, `name`, `email`, `password`, `rem
         '1689243617',
         '1689243617'
 )", 2);
+
+$migration->query("CREATE TABLE IF NOT EXISTS queue_jobs (
+    uid VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    class VARCHAR(255) NOT NULL,
+    method VARCHAR(255) NOT NULL,
+    data VARCHAR(255) NOT NULL,
+    status INT NOT NULL DEFAULT " . QUEUE_STATUS_OPEN . "
+)", 3);
 
 /** =============== End queries =============== */
 

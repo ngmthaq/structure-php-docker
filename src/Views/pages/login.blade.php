@@ -8,7 +8,7 @@
 
 @section('base-content')
     <form action="/login" method="post">
-        {{ csrf_input() }}
+        {{ csrf() }}
         <h1>{{ __('login') }}</h1>
         <input type="hidden" name="back_url" value="{{ $params['back_url'] }}">
         <input type="email" name="email" id="email" placeholder="{{ __('email') }}"><br>

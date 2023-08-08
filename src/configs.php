@@ -31,3 +31,9 @@ define("XSRF_KEY", "XSRF_TOKEN");
 
 // Throttle
 define("THROTTLE_LIMIT_PER_MINUTE", 60);
+
+// Queue
+define("QUEUE_STATUS_OPEN", 0);
+define("QUEUE_STATUS_IN_PROGRESS", 1);
+define("QUEUE_TYPE_NORMAL", "NORMAL");
+define("QUEUE_TYPE_STATIC", "STATIC");

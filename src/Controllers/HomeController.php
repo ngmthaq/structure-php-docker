@@ -4,12 +4,23 @@ namespace Src\Controllers;
 
 use Src\Helpers\Auth;
 use Src\Helpers\Session;
+use Src\Helpers\Str;
 use Src\Mails\LoginMail;
+use Src\Models\Queue\QueueEntity;
 
 class HomeController extends BaseController
 {
     public function index()
     {
+        $queue_array = [];
+        $queue_array["uid"] = Str::uuid();
+        $queue_array["type"] = QUEUE_TYPE_NORMAL;
+        $queue_array["class"] = HomeController::class;
+        $queue_array["method"] = "testQueue";
+        $queue_array["data"] = json_encode([]);
+        $queue_array["status"] = QUEUE_STATUS_OPEN;
+        $queue = new QueueEntity($queue_array);
+        setupQueue($queue);
         $this->res->renderView("pages.home");
     }
 
@@ -36,5 +47,10 @@ class HomeController extends BaseController
     {
         Auth::logout();
         $this->res->redirect("/login");
+    }
+
+    public function testQueue()
+    {
+        //
     }
 }
