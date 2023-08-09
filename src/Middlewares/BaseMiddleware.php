@@ -4,8 +4,9 @@ namespace Src\Middlewares;
 
 use Src\Helpers\Request;
 use Src\Helpers\Response;
+use stdClass;
 
-abstract class BaseMiddleware
+abstract class BaseMiddleware extends stdClass
 {
     protected mixed $next_function;
     protected Request $req;

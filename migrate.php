@@ -55,9 +55,7 @@ $migration->query("INSERT INTO `users` (`uid`, `name`, `email`, `password`, `rem
 
 $migration->query("CREATE TABLE IF NOT EXISTS queue_jobs (
     uid VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL,
     class VARCHAR(255) NOT NULL,
-    method VARCHAR(255) NOT NULL,
     data VARCHAR(255) NOT NULL,
     status INT NOT NULL DEFAULT " . QUEUE_STATUS_OPEN . "
 )", 3);

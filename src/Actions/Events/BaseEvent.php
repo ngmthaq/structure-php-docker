@@ -2,17 +2,19 @@
 
 namespace Src\Actions\Events;
 
-abstract class BaseEvent
+use stdClass;
+
+abstract class BaseEvent extends stdClass
 {
     public const CHANNEL_SYNC = "SYNC";
 
     public const CHANNEL_DATABASE = "DATABASE";
 
-    public mixed $data;
+    public stdClass $event;
 
-    public function __construct(mixed $data)
+    public function __construct()
     {
-        $this->data = $data;
+        $this->event = new stdClass();
     }
 
     abstract public function listeners(): array;

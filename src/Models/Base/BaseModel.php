@@ -2,7 +2,9 @@
 
 namespace Src\Models\Base;
 
-abstract class BaseModel
+use stdClass;
+
+abstract class BaseModel extends stdClass
 {
     public function __construct()
     {

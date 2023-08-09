@@ -3,12 +3,13 @@
 namespace Src\Mails;
 
 use Src\Models\User\UserEntity;
+use stdClass;
 
 class LoginMail extends BaseMail
 {
-    protected UserEntity $user;
+    protected UserEntity|stdClass $user;
 
-    public function __construct(UserEntity $user)
+    public function __construct(UserEntity|stdClass $user)
     {
         $this->user = $user;
     }
