@@ -2,7 +2,9 @@
 
 namespace Src\Models\Base;
 
-abstract class BaseEntity
+use stdClass;
+
+abstract class BaseEntity extends stdClass
 {
     public function __construct()
     {

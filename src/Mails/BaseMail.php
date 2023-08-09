@@ -2,10 +2,13 @@
 
 namespace Src\Mails;
 
+use eftec\bladeone\BladeOne;
 use PHPMailer\PHPMailer\PHPMailer;
+use Src\Helpers\Dir;
 use Src\Helpers\Response;
+use stdClass;
 
-abstract class BaseMail
+abstract class BaseMail extends stdClass
 {
     protected PHPMailer $mailer;
 
@@ -42,8 +45,23 @@ abstract class BaseMail
 
     protected function getMailBodyHtml(string $name, array $data): string
     {
-        $res = new Response();
-        return $res->getViewHtml($name, $data);
+        $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
+        if (!file_exists($cached_view_dir)) mkdir($cached_view_dir);
+        $view_dir = Dir::getDirFromSrc("/Views");
+        $blade = new BladeOne($view_dir, $cached_view_dir, BladeOne::MODE_DEBUG);
+        $blade->pipeEnable = true;
+        $blade->addAliasClasses("Auth", Auth::class);
+        $blade->addAliasClasses("Common", Common::class);
+        $blade->addAliasClasses("Cookies", Cookies::class);
+        $blade->addAliasClasses("Dev", Dev::class);
+        $blade->addAliasClasses("Dir", Dir::class);
+        $blade->addAliasClasses("Hash", Hash::class);
+        $blade->addAliasClasses("Header", Header::class);
+        $blade->addAliasClasses("Lang", Lang::class);
+        $blade->addAliasClasses("Number", Number::class);
+        $blade->addAliasClasses("Session", Session::class);
+        $blade->addAliasClasses("Str", Str::class);
+        return $blade->run($name, $data);
     }
 
     public function send(): void

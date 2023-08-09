@@ -7,20 +7,16 @@ use Src\Models\Base\BaseEntity;
 class QueueEntity extends BaseEntity
 {
     public string $uid;
-    public string $type;
     public string $class;
-    public string $method;
     public string $data;
     public int $status;
 
-    public function __construct(array $queue)
+    public function __construct(array $queue = [])
     {
         parent::__construct();
-        $this->uid = $queue["uid"];
-        $this->type = $queue["type"];
-        $this->class = $queue["class"];
-        $this->method = $queue["method"];
-        $this->data = $queue["data"];
-        $this->status = $queue["status"];
+        $this->uid = isset($queue["uid"]) ? $queue["uid"] : "";
+        $this->class = isset($queue["class"]) ? $queue["class"] : "";
+        $this->data = isset($queue["data"]) ? $queue["data"] : "";
+        $this->status = isset($queue["status"]) ? $queue["status"] : QUEUE_STATUS_OPEN;
     }
 }

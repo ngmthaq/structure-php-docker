@@ -36,11 +36,9 @@ class QueueDao extends BaseDao
 
     public function create(QueueEntity $entity)
     {
-        $this->db->setSql("INSERT INTO `queue_jobs` (`uid`, `type`, `class`, `method`, `data`) VALUES (:uid, :type, :class, :method, :data)");
+        $this->db->setSql("INSERT INTO `queue_jobs` (`uid`, `class`, `data`) VALUES (:uid, :class, :data)");
         $this->db->setParam(":uid", $entity->uid);
-        $this->db->setParam(":type", $entity->type);
         $this->db->setParam(":class", $entity->class);
-        $this->db->setParam(":method", $entity->method);
         $this->db->setParam(":data", $entity->data);
         return $this->db->execute();
     }

@@ -5,6 +5,7 @@ namespace Src\Controllers;
 use Src\Actions\Dispatch;
 use Src\Actions\Events\LoginEvent;
 use Src\Helpers\Auth;
+use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Helpers\Str;
 use Src\Mails\LoginMail;
@@ -27,7 +28,8 @@ class HomeController extends BaseController
         extract($this->req->getInputs());
         if (Auth::login($email, $password, $this->req->getInputs("is_remember") !== null)) {
             $back_url = $this->req->getInputs("back_url");
-            Dispatch::event(new LoginEvent(Auth::user()));
+            $user = Auth::user();
+            Dispatch::event(new LoginEvent($user));
             $this->res->redirect($back_url === "" ? "/" : $back_url);
         } else {
             Session::setFlashMessage("email", "Email hoặc mật khẩu không chính xác");

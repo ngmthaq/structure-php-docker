@@ -16,7 +16,8 @@ class QueueModel extends BaseModel
 
     public function getFirst()
     {
-        return new QueueEntity($this->queue_dao->getFirst());
+        $job = $this->queue_dao->getFirst();
+        return isset($job) && gettype($job) === "array" ? new QueueEntity($job) : null;
     }
 
     public function setInProgress(string $uid)

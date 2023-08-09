@@ -6,8 +6,9 @@ use Src\Helpers\Cookies;
 use Src\Helpers\Database;
 use Src\Helpers\Request;
 use Src\Helpers\Response;
+use stdClass;
 
-class BaseController
+class BaseController extends stdClass
 {
     public Database $db;
     public Request $req;

@@ -1,5 +1,38 @@
 <?php
 
-sleep(10);
+use Dotenv\Dotenv;
+use Src\Helpers\Database;
+use Src\Helpers\Dev;
+use Src\Helpers\Dir;
+use Src\Helpers\Session;
+use Src\Models\Queue\QueueModel;
 
-echo "Queue";
+require_once("/var/www/html/src/configs.php");
+require_once("/var/www/html/vendor/autoload.php");
+
+Session::start();
+$dotenv = Dotenv::createImmutable(Dir::getRootDir());
+$dotenv->load();
+$GLOBALS[DATABASE_GLOBAL_KEY] = new Database();
+
+function run()
+{
+    $queue_model = new QueueModel();
+    $job = $queue_model->getFirst();
+    if ($job && $job->status === QUEUE_STATUS_OPEN) {
+        try {
+            Dev::writeLog(json_encode($job), "queue");
+            $queue_model->setInProgress($job->uid);
+            $listener = $job->class;
+            $listener_instance = new $listener();
+            $listener_instance->handle(json_decode($job->data));
+            $queue_model->setDone($job->uid);
+            run();
+        } catch (\Throwable $th) {
+            Dev::writeLog(json_encode($th->getMessage()), "error", LOG_STATUS_ERROR);
+            Dev::writeLog(json_encode($job), "queue", LOG_STATUS_ERROR);
+        }
+    }
+}
+
+run();

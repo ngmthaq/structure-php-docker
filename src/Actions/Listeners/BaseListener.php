@@ -2,14 +2,9 @@
 
 namespace Src\Actions\Listeners;
 
-abstract class BaseListener
+use stdClass;
+
+abstract class BaseListener extends stdClass
 {
-    protected mixed $data;
-
-    public function __construct(mixed $data)
-    {
-        $this->data = $data;
-    }
-
-    abstract protected function handle(): void;
+    abstract protected function handle(stdClass $event): void;
 }
