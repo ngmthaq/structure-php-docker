@@ -9,6 +9,7 @@ use Src\Middlewares\GuestMiddleware;
 use Src\Middlewares\ThrottleMiddleware;
 use Src\Middlewares\VerifiedMiddleware;
 use Src\Middlewares\XsrfMiddleware;
+use Src\Validators\LoginValidator;
 
 final class Routes extends Configs
 {
@@ -57,6 +58,7 @@ final class Routes extends Configs
             "path" => "/login",
             "controller" => HomeController::class,
             "action" => "attempt",
+            "validator" => LoginValidator::class,
             "middlewares" => [GuestMiddleware::class],
         ]);
 

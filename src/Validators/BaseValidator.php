@@ -2,16 +2,30 @@
 
 namespace Src\Validators;
 
-use Src\Helpers\Request;
+use Src\Helpers\Session;
+use Src\Middlewares\BaseMiddleware;
 
-abstract class BaseValidator
+abstract class BaseValidator extends BaseMiddleware
 {
-    protected Request $req;
+    abstract protected function validate(): bool;
 
-    public function __construct(Request $req)
+    public function handle(): void
     {
-        $this->req = $req;
+        if (!$this->validate()) {
+            $this->onFailure();
+        } else {
+            $this->next();
+        }
     }
 
-    abstract protected function validate(): bool;
+    protected function setMessage(string $key, string $message)
+    {
+        Session::setFlashMessage($key, $message);
+    }
+
+    protected function onFailure(): void
+    {
+        $this->res->reload();
+        exit;
+    }
 }

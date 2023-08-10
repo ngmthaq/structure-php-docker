@@ -11,7 +11,7 @@
         {{ csrf() }}
         <h1>{{ __('login') }}</h1>
         <input type="hidden" name="back_url" value="{{ $params['back_url'] }}">
-        <input type="email" name="email" id="email" placeholder="{{ __('email') }}"><br>
+        <input type="input" name="email" id="email" placeholder="{{ __('email') }}"><br>
         <small>{{ $flash_messages['email'] }}</small><br>
         <input type="password" name="password" id="password" placeholder="{{ __('password') }}"><br>
         <small>{{ $flash_messages['password'] }}</small><br>

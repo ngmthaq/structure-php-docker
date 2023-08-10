@@ -27,6 +27,7 @@ try {
         if ($route) {
             extract($route);
             $controller_instance = new $controller();
+            if (isset($validator)) $middlewares[] = $validator;
             if (count($middlewares) > 0) {
                 $middleware_instances = [];
                 $next = function () use ($controller_instance, $action) {
