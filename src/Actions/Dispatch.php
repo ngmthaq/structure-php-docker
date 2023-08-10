@@ -7,9 +7,9 @@ use Src\Helpers\Str;
 use Src\Models\Queue\QueueEntity;
 use Src\Models\Queue\QueueModel;
 
-class Dispatch
+final class Dispatch
 {
-    public static function event(BaseEvent $event)
+    final public static function event(BaseEvent $event)
     {
         if ($event->channel() === BaseEvent::CHANNEL_SYNC) {
             foreach ($event->listeners() as $listener) {

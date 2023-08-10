@@ -8,7 +8,7 @@ use Src\Helpers\Request;
 use Src\Helpers\Response;
 use stdClass;
 
-class BaseController extends stdClass
+abstract class BaseController extends stdClass
 {
     public Database $db;
     public Request $req;

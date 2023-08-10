@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Cookies
+final class Cookies
 {
     /**
      * Set cookies

@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Str
+final class Str
 {
     /**
      * Generate uuid

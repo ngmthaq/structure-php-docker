@@ -4,7 +4,7 @@ namespace Src\Helpers;
 
 use Src\Locales\Vi;
 
-class Lang
+final class Lang
 {
     /**
      * Register locales

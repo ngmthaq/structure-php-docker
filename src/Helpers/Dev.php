@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Dev
+final class Dev
 {
     /**
      * Print data in screen

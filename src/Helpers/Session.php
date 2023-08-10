@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Session
+final class Session
 {
     /**
      * Start session

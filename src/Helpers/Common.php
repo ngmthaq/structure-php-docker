@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Common
+final class Common
 {
     /**
      * Get current url (full path)

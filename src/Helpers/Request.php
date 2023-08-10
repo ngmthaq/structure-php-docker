@@ -4,7 +4,7 @@ namespace Src\Helpers;
 
 use Src\Models\User\UserEntity;
 
-class Request
+final class Request
 {
     protected array $params;
     protected array $inputs;

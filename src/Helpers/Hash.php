@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Hash
+final class Hash
 {
     /**
      * Hash a string using md5 function

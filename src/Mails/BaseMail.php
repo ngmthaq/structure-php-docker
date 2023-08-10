@@ -5,7 +5,6 @@ namespace Src\Mails;
 use eftec\bladeone\BladeOne;
 use PHPMailer\PHPMailer\PHPMailer;
 use Src\Helpers\Dir;
-use Src\Helpers\Response;
 use stdClass;
 
 abstract class BaseMail extends stdClass

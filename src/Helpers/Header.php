@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Header
+final class Header
 {
     /**
      * Get full url

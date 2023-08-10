@@ -2,7 +2,7 @@
 
 namespace Src\Locales;
 
-class Vi
+final class Vi
 {
     /**
      * Register language data

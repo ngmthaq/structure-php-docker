@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Migration
+final class Migration
 {
     /**
      * Migration version

@@ -5,7 +5,7 @@ namespace Src\Helpers;
 use Src\Models\User\UserModel;
 use Src\Models\User\UserEntity;
 
-class Auth
+final class Auth
 {
     /**
      * Get auth user

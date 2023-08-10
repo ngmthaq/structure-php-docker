@@ -5,7 +5,7 @@ namespace Src\Helpers;
 use PDO;
 use PDOStatement;
 
-class Database
+final class Database
 {
     /**
      * Database host

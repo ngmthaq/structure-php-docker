@@ -4,7 +4,7 @@ namespace Src\Helpers;
 
 use eftec\bladeone\BladeOne;
 
-class Response
+final class Response
 {
     private Request $req;
 

@@ -2,7 +2,7 @@
 
 namespace Src\Helpers;
 
-class Number
+final class Number
 {
     //
 }
