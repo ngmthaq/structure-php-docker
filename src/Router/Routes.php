@@ -2,6 +2,8 @@
 
 namespace Src\Router;
 
+use Src\Controllers\Auth\LoginController;
+use Src\Controllers\Auth\RegisterController;
 use Src\Controllers\HomeController;
 use Src\Middlewares\AuthMiddleware;
 use Src\Middlewares\CorsMiddleware;
@@ -10,6 +12,7 @@ use Src\Middlewares\ThrottleMiddleware;
 use Src\Middlewares\VerifiedMiddleware;
 use Src\Middlewares\XsrfMiddleware;
 use Src\Validators\LoginValidator;
+use Src\Validators\RegisterValidator;
 
 final class Routes extends Configs
 {
@@ -38,13 +41,6 @@ final class Routes extends Configs
                 VerifiedMiddleware::class,
             ],
         ]);
-
-        $this->get([
-            "path" => "/login",
-            "controller" => HomeController::class,
-            "action" => "login",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
     }
 
     /**
@@ -54,19 +50,46 @@ final class Routes extends Configs
      */
     public function registerPostRoutes()
     {
+        //
+    }
+
+    public function registerAuthRoutes()
+    {
+        $this->get([
+            "path" => "/login",
+            "controller" => LoginController::class,
+            "action" => "index",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/register",
+            "controller" => RegisterController::class,
+            "action" => "index",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
         $this->post([
             "path" => "/login",
-            "controller" => HomeController::class,
-            "action" => "attempt",
+            "controller" => LoginController::class,
+            "action" => "login",
             "validator" => LoginValidator::class,
             "middlewares" => [GuestMiddleware::class],
         ]);
 
         $this->post([
             "path" => "/logout",
-            "controller" => HomeController::class,
+            "controller" => LoginController::class,
             "action" => "logout",
             "middlewares" => [AuthMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/register",
+            "controller" => RegisterController::class,
+            "action" => "register",
+            "validator" => RegisterValidator::class,
+            "middlewares" => [GuestMiddleware::class],
         ]);
     }
 
@@ -74,5 +97,6 @@ final class Routes extends Configs
     {
         $this->registerGetRoutes();
         $this->registerPostRoutes();
+        $this->registerAuthRoutes();
     }
 }
