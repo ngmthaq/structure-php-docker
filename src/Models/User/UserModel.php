@@ -23,11 +23,13 @@ class UserModel extends BaseModel
 
     public function findOneByUid(string $uid)
     {
-        return new UserEntity($this->user_dao->findOneByUid($uid));
+        $user = $this->user_dao->findOneByUid($uid);
+        return isset($user) ? new UserEntity($user) : null;
     }
 
     public function findOneByEmail(string $email)
     {
-        return new UserEntity($this->user_dao->findOneByEmail($email));
+        $user = $this->user_dao->findOneByEmail($email);
+        return isset($user) ? new UserEntity($user) : null;
     }
 }

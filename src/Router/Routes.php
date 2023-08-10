@@ -7,6 +7,7 @@ use Src\Middlewares\AuthMiddleware;
 use Src\Middlewares\CorsMiddleware;
 use Src\Middlewares\GuestMiddleware;
 use Src\Middlewares\ThrottleMiddleware;
+use Src\Middlewares\VerifiedMiddleware;
 use Src\Middlewares\XsrfMiddleware;
 
 final class Routes extends Configs
@@ -31,7 +32,10 @@ final class Routes extends Configs
             "path" => "/",
             "controller" => HomeController::class,
             "action" => "index",
-            "middlewares" => [AuthMiddleware::class],
+            "middlewares" => [
+                AuthMiddleware::class,
+                VerifiedMiddleware::class,
+            ],
         ]);
 
         $this->get([
