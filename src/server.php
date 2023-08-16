@@ -17,9 +17,18 @@ try {
     Session::start();
     $dotenv = Dotenv::createImmutable(Dir::getRootDir());
     $dotenv->load();
+    if (isset($_POST['REQUEST_METHOD']) && $_POST['REQUEST_METHOD'] === 'PUT') {
+        $_SERVER['REQUEST_METHOD'] = 'PUT';
+    } elseif (isset($_POST['REQUEST_METHOD']) && $_POST['REQUEST_METHOD'] === 'PATCH') {
+        $_SERVER['REQUEST_METHOD'] = 'PATCH';
+    } elseif (isset($_POST['REQUEST_METHOD']) && $_POST['REQUEST_METHOD'] === 'DELETE') {
+        $_SERVER['REQUEST_METHOD'] = 'DELETE';
+    }
     if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         parse_str(file_get_contents("php://input"), $_POST);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+        parse_str(file_get_contents("php://input"), $_POST);
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         parse_str(file_get_contents("php://input"), $_POST);
     }
     if ($_ENV["APP_ENV"] === "maintenance") {

@@ -13,3 +13,18 @@ function csrf()
     $token = $_SESSION[XSRF_KEY];
     echo "<input type='hidden' name='$key' value='$token' />";
 }
+
+function put()
+{
+    echo "<input type='hidden' name='REQUEST_METHOD' value='PUT' />";
+}
+
+function patch()
+{
+    echo "<input type='hidden' name='REQUEST_METHOD' value='PATCH' />";
+}
+
+function delete()
+{
+    echo "<input type='hidden' name='REQUEST_METHOD' value='DELETE' />";
+}

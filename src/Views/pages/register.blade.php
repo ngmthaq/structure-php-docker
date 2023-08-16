@@ -6,16 +6,78 @@
 
 @section('keywords', 'PHP')
 
+@push('css')
+    <style>
+        .wrap {
+            width: 100%;
+            overflow: hidden;
+            background: #fff;
+            border-radius: 5px;
+            -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+            -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+            box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+        }
+
+        .wrap .img {
+            height: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .login-wrap {
+            position: relative;
+        }
+    </style>
+@endpush
+
 @section('base-content')
-    <form action="/register" method="post">
-        {{ csrf() }}
-        <h1>{{ __('register') }}</h1>
-        <input type="input" name="email" id="email" placeholder="{{ __('email') }}"><br>
-        <small>{{ $flash_messages['email'] }}</small><br>
-        <input type="input" name="name" id="name" placeholder="{{ __('name') }}"><br>
-        <small>{{ $flash_messages['name'] }}</small><br>
-        <input type="password" name="password" id="password" placeholder="{{ __('password') }}"><br>
-        <small>{{ $flash_messages['password'] }}</small><br>
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <div class="row justify-content-center align-content-center h-100vh">
+            <div class="col-4">
+                <div class="wrap">
+                    <div class="img" style="background-image: url(/img/login-background.jpg);"></div>
+                    <div class="login-wrap p-4">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3 class="mb-2">Sign Up</h3>
+                            </div>
+                            <div class="w-100">
+                                <p class="social-media d-flex justify-content-end">
+                                    <a href="#" class="social-icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-facebook"></span>
+                                    </a>
+                                    <a href="#" class="social-icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-twitter"></span>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <form action="/register" method="post" class="signin-form" autocomplete="on">
+                            {{ csrf() }}
+                            <div class="form-group mt-3 mb-3">
+                                <label class="form-label required" for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group mt-3 mb-3">
+                                <label class="form-label required" for="email">Email</label>
+                                <input type="text" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="form-label required" for="password">Password</label>
+                                <input id="password" type="password" class="form-control" name="password"
+                                    data-toggle-password="on">
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="submit" class="form-control btn btn-primary px-3">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </form>
+                        <p class="text-center">Have an account? <a data-toggle="tab" href="/login">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
