@@ -50,6 +50,63 @@ abstract class Configs
     }
 
     /**
+     * Register a PUT route
+     * 
+     * @param array $configs
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action", "middlewares" => [], "validator" => null]
+     * @return void
+     */
+    public function put(array $configs)
+    {
+        extract($configs);
+        if (empty($controller)) throw new Exception("Controller not found");
+        if (empty($action)) throw new Exception("Action not found");
+        if (empty($path)) throw new Exception("Path not found");
+        if (empty($middlewares)) $middlewares = [];
+        if (empty($validator)) $validator = null;
+        $method = "PUT";
+        $this->routes[] = compact("path", "controller", "action", "method", "middlewares", "validator");
+    }
+
+    /**
+     * Register a PATCH route
+     * 
+     * @param array $configs
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action", "middlewares" => [], "validator" => null]
+     * @return void
+     */
+    public function patch(array $configs)
+    {
+        extract($configs);
+        if (empty($controller)) throw new Exception("Controller not found");
+        if (empty($action)) throw new Exception("Action not found");
+        if (empty($path)) throw new Exception("Path not found");
+        if (empty($middlewares)) $middlewares = [];
+        if (empty($validator)) $validator = null;
+        $method = "PATCH";
+        $this->routes[] = compact("path", "controller", "action", "method", "middlewares", "validator");
+    }
+
+    /**
+     * Register a DELETE route
+     * 
+     * @param array $configs
+     * @example ["path" => "/", "controller" => Controller::class, "action" => "action", "middlewares" => [], "validator" => null]
+     * @return void
+     */
+    public function delete(array $configs)
+    {
+        extract($configs);
+        if (empty($controller)) throw new Exception("Controller not found");
+        if (empty($action)) throw new Exception("Action not found");
+        if (empty($path)) throw new Exception("Path not found");
+        if (empty($middlewares)) $middlewares = [];
+        if (empty($validator)) $validator = null;
+        $method = "DELETE";
+        $this->routes[] = compact("path", "controller", "action", "method", "middlewares", "validator");
+    }
+
+    /**
      * Get route config
      * 
      * @param string $path

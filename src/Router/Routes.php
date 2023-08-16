@@ -101,23 +101,9 @@ final class Routes extends Configs
         ]);
 
         $this->post([
-            "path" => "/password/change",
-            "controller" => ChangePasswordController::class,
-            "action" => "changePassword",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
-
-        $this->post([
             "path" => "/password/forget",
             "controller" => ForgetPasswordController::class,
             "action" => "sendMailForgetPassword",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
-
-        $this->post([
-            "path" => "/password/reset",
-            "controller" => ForgetPasswordController::class,
-            "action" => "changePassword",
             "middlewares" => [GuestMiddleware::class],
         ]);
 
@@ -141,6 +127,20 @@ final class Routes extends Configs
             "controller" => RegisterController::class,
             "action" => "register",
             "validator" => RegisterValidator::class,
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->put([
+            "path" => "/password/change",
+            "controller" => ChangePasswordController::class,
+            "action" => "changePassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->put([
+            "path" => "/password/reset",
+            "controller" => ForgetPasswordController::class,
+            "action" => "changePassword",
             "middlewares" => [GuestMiddleware::class],
         ]);
     }

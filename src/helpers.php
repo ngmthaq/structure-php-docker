@@ -1,8 +1,6 @@
 <?php
 
 use Src\Helpers\Lang;
-use Src\Models\Queue\QueueEntity;
-use Src\Models\Queue\QueueModel;
 
 function __(string $key)
 {

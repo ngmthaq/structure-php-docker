@@ -17,6 +17,11 @@ try {
     Session::start();
     $dotenv = Dotenv::createImmutable(Dir::getRootDir());
     $dotenv->load();
+    if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+        parse_str(file_get_contents("php://input"), $_POST);
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+        parse_str(file_get_contents("php://input"), $_POST);
+    }
     if ($_ENV["APP_ENV"] === "maintenance") {
         $res = new Response();
         $res->renderView("errors.503", [], STT_SERVICE_UNAVAILABLE);
