@@ -57,11 +57,12 @@
                             {{ csrf() }}
                             <div class="form-group mt-3 mb-3">
                                 <label class="form-label required" for="email">Email</label>
-                                <input type="text" class="form-control" id="email">
+                                <input type="text" class="form-control" id="email" name="email">
                             </div>
                             <div class="form-group mb-4">
                                 <label class="form-label required" for="password">Password</label>
-                                <input id="password" type="password" class="form-control" data-toggle-password="on">
+                                <input id="password" type="password" class="form-control" name="password"
+                                    data-toggle-password="on">
                             </div>
                             <div class="form-group mb-3">
                                 <button type="submit" class="form-control btn btn-primary px-3">

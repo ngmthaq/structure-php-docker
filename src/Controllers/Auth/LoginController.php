@@ -18,7 +18,7 @@ class LoginController extends BaseController
         extract($this->req->getInputs());
         if (Auth::login($email, $password, $this->req->getInputs("is_remember") !== null)) {
             $back_url = $this->req->getInputs("back_url");
-            $this->res->redirect($back_url === "" ? "/" : $back_url);
+            $this->res->redirect(empty($back_url) ? "/" : $back_url);
         } else {
             Session::setFlashMessage("email", "Email hoặc mật khẩu không chính xác");
             $this->res->reload();
