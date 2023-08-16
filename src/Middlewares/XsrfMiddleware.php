@@ -12,7 +12,8 @@ class XsrfMiddleware extends BaseMiddleware
             $_SESSION[XSRF_KEY] = Str::random(255);
         }
 
-        if ($_SERVER["REQUEST_METHOD"] === "POST" && $this->req->getInputs(XSRF_KEY) !== $_SESSION[XSRF_KEY]) {
+        $methods = ["POST", "PUT", "PATCH", "DELETE"];
+        if (isset($_SERVER["REQUEST_METHOD"]) && in_array($_SERVER["REQUEST_METHOD"], $methods) && $this->req->getInputs(XSRF_KEY) !== $_SESSION[XSRF_KEY]) {
             $this->res->renderView("errors.403", [], STT_FORBIDDEN);
             exit();
         }

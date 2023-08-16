@@ -18,6 +18,6 @@
 @section('base-content')
     <h1>403</h1>
     <p>
-        <i>You don't have permission to access <?php echo Header::getFullUrl(); ?></i>
+        <i>You don't have permission to access {{ Header::getFullUrl() }}</i>
     </p>
 @endsection
