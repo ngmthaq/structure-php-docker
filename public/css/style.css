@@ -1,0 +1,19 @@
+label.required {
+  position: relative;
+}
+
+label.required::before {
+  content: "*";
+  position: absolute;
+  top: 0;
+  right: -8px;
+  color: red;
+}
+
+.h-100vh {
+  height: 100vh !important;
+}
+
+.w-100vw {
+  height: 100vw !important;
+}

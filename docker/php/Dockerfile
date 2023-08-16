@@ -4,6 +4,8 @@ WORKDIR /var/www/html/
 
 RUN apt update -y
 
+RUN apt upgrade -y
+
 RUN apt install libzip-dev libpng-dev zlib1g-dev libmariadb-dev git zip unzip sendmail -y
 
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli

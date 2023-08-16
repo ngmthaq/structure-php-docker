@@ -2,8 +2,11 @@
 
 namespace Src\Router;
 
+use Src\Controllers\Auth\ChangePasswordController;
+use Src\Controllers\Auth\ForgetPasswordController;
 use Src\Controllers\Auth\LoginController;
 use Src\Controllers\Auth\RegisterController;
+use Src\Controllers\Auth\VerifyController;
 use Src\Controllers\HomeController;
 use Src\Middlewares\AuthMiddleware;
 use Src\Middlewares\CorsMiddleware;
@@ -66,6 +69,55 @@ final class Routes extends Configs
             "path" => "/register",
             "controller" => RegisterController::class,
             "action" => "index",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/verify",
+            "controller" => VerifyController::class,
+            "action" => "index",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/password/forget",
+            "controller" => ForgetPasswordController::class,
+            "action" => "forgetPassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/password/reset",
+            "controller" => ForgetPasswordController::class,
+            "action" => "resetPassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->get([
+            "path" => "/password/change",
+            "controller" => ChangePasswordController::class,
+            "action" => "index",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/password/change",
+            "controller" => ChangePasswordController::class,
+            "action" => "changePassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/password/forget",
+            "controller" => ForgetPasswordController::class,
+            "action" => "sendMailForgetPassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/password/reset",
+            "controller" => ForgetPasswordController::class,
+            "action" => "changePassword",
             "middlewares" => [GuestMiddleware::class],
         ]);
 
