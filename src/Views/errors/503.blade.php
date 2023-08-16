@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', '500! Error')
+@section('title', '503! Maintenance')
 
 @push('css')
     <style>
@@ -16,8 +16,8 @@
 @endpush
 
 @section('base-content')
-    <h1>500</h1>
+    <h1>503</h1>
     <p>
-        <i>Oops! Some thing wrong, please try again later</i>
+        <i>The page was unable to load at this time</i>
     </p>
 @endsection
