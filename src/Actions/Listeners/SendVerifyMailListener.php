@@ -2,14 +2,14 @@
 
 namespace Src\Actions\Listeners;
 
-use Src\Mails\LoginMail;
+use Src\Mails\VerifyUserMail;
 use stdClass;
 
 class SendMailLoginListener extends BaseListener
 {
     public function handle(stdClass $event): void
     {
-        $mail = new LoginMail($event->user);
+        $mail = new VerifyUserMail($event->user);
         $mail->send();
     }
 }

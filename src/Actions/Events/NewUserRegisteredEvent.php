@@ -2,10 +2,10 @@
 
 namespace Src\Actions\Events;
 
-use Src\Actions\Listeners\SendMailLoginListener;
+use Src\Actions\Listeners\SendVerifyMailListener;
 use Src\Models\User\UserEntity;
 
-class LoginEvent extends BaseEvent
+class NewUserRegisteredEvent extends BaseEvent
 {
     public function __construct(UserEntity $user)
     {
@@ -16,7 +16,7 @@ class LoginEvent extends BaseEvent
     public function listeners(): array
     {
         return [
-            SendMailLoginListener::class,
+            SendVerifyMailListener::class,
         ];
     }
 

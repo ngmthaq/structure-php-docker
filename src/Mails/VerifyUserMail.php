@@ -5,7 +5,7 @@ namespace Src\Mails;
 use Src\Models\User\UserEntity;
 use stdClass;
 
-class LoginMail extends BaseMail
+class VerifyUserMail extends BaseMail
 {
     protected UserEntity|stdClass $user;
 
