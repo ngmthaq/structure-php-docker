@@ -55,16 +55,22 @@
                         </div>
                         <form action="/login" method="post" class="signin-form" autocomplete="on">
                             {{ csrf() }}
-                            <div class="form-group mt-3 mb-3">
+                            <div class="form-group mt-3">
                                 <label class="form-label required" for="email">Email</label>
                                 <input type="text" class="form-control" id="email" name="email">
                             </div>
-                            <div class="form-group mb-4">
+                            @if (isset($flash_messages['email']))
+                                <small class="text-danger">{{ $flash_messages['email'] }}</small>
+                            @endif
+                            <div class="form-group mt-3">
                                 <label class="form-label required" for="password">Password</label>
                                 <input id="password" type="password" class="form-control" name="password"
                                     data-toggle-password="on">
                             </div>
-                            <div class="form-group mb-3">
+                            @if (isset($flash_messages['password']))
+                                <small class="text-danger">{{ $flash_messages['password'] }}</small>
+                            @endif
+                            <div class="form-group my-3">
                                 <button type="submit" class="form-control btn btn-primary px-3">
                                     Sign In
                                 </button>

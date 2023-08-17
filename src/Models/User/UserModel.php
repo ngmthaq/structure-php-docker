@@ -32,4 +32,9 @@ class UserModel extends BaseModel
         $user = $this->user_dao->findOneByEmail($email);
         return isset($user) ? new UserEntity($user) : null;
     }
+
+    public function insert(UserEntity $user)
+    {
+        return $this->user_dao->insert($user);
+    }
 }

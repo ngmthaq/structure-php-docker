@@ -9,7 +9,7 @@ class XsrfMiddleware extends BaseMiddleware
     public function handle(): void
     {
         if (empty($_SESSION[XSRF_KEY])) {
-            $_SESSION[XSRF_KEY] = Str::random(255);
+            $_SESSION[XSRF_KEY] = Str::random(32);
         }
 
         $methods = ["POST", "PUT", "PATCH", "DELETE"];

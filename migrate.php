@@ -59,6 +59,30 @@ $migration->query("CREATE TABLE IF NOT EXISTS queue_jobs (
     status INT NOT NULL DEFAULT " . QUEUE_STATUS_OPEN . "
 )", 1);
 
+$migration->query("CREATE TABLE IF NOT EXISTS `tokens` (
+    `uid` VARCHAR(255) NOT NULL ,
+    `user_uid` VARCHAR(255) NOT NULL ,
+    `token_type` VARCHAR(255) NOT NULL ,
+    `token` VARCHAR(255) NOT NULL ,
+    `created_at` INT NOT NULL ,
+    `expired_at` INT NOT NULL ,
+    PRIMARY KEY (`uid`)
+    ) ENGINE = InnoDB;
+", 2);
+
+$migration->query("ALTER TABLE `tokens` 
+    ADD CONSTRAINT `token_uid_user_uid` 
+    FOREIGN KEY (`user_uid`) 
+    REFERENCES `users`(`uid`) 
+    ON DELETE RESTRICT 
+    ON UPDATE RESTRICT
+", 2);
+
+$migration->query("ALTER TABLE `tokens` 
+    ADD UNIQUE `token` (`token`)
+    USING BTREE;
+", 2);
+
 /** =============== End queries =============== */
 
 // Run migration

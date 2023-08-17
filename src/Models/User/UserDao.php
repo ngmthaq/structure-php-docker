@@ -3,6 +3,8 @@
 namespace Src\Models\User;
 
 use PDO;
+use Src\Helpers\DateTime;
+use Src\Helpers\Hash;
 use Src\Models\Base\BaseDao;
 
 class UserDao extends BaseDao
@@ -37,5 +39,19 @@ class UserDao extends BaseDao
         $raw_user = $stm->fetch();
         if (!$raw_user) return null;
         return $raw_user;
+    }
+
+    public function insert(UserEntity $user): bool
+    {
+        $sql = "INSERT INTO `users` (`uid`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES (:uid, :name, :email, :password, :created_at, :updated_at)";
+        $this->db->setSql($sql);
+        $this->db->setParam(":uid", $user->uid);
+        $this->db->setParam(":name", $user->name);
+        $this->db->setParam(":email", $user->email);
+        $this->db->setParam(":password", Hash::make($user->password));
+        $this->db->setParam(":created_at", DateTime::unixTimestamp());
+        $this->db->setParam(":updated_at", DateTime::unixTimestamp());
+        $stm = $this->db->execute();
+        return isset($stm);
     }
 }

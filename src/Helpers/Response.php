@@ -67,6 +67,7 @@ final class Response
         $blade->addAliasClasses("Number", Number::class);
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
+        $blade->addAliasClasses("DateTime", DateTime::class);
         $flash_messages = [];
         if (isset($_SESSION[FLASH_MESSAGE_KEY])) {
             $flash_messages = $_SESSION[FLASH_MESSAGE_KEY];

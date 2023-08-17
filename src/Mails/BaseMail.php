@@ -4,6 +4,7 @@ namespace Src\Mails;
 
 use eftec\bladeone\BladeOne;
 use PHPMailer\PHPMailer\PHPMailer;
+use Src\Helpers\DateTime;
 use Src\Helpers\Dir;
 use stdClass;
 
@@ -60,6 +61,7 @@ abstract class BaseMail extends stdClass
         $blade->addAliasClasses("Number", Number::class);
         $blade->addAliasClasses("Session", Session::class);
         $blade->addAliasClasses("Str", Str::class);
+        $blade->addAliasClasses("DateTime", DateTime::class);
         return $blade->run($name, $data);
     }
 
