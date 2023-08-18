@@ -80,6 +80,20 @@ final class Auth
         }
     }
 
+    public static function loginWithUid(string $uid, bool $is_remember = false)
+    {
+        $hash_key = random_int(2, 16);
+        $auth = Hash::rowFenceEncrypt($uid, $hash_key);
+        $json = json_encode($auth);
+        if ($is_remember) {
+            Cookies::set(AUTH_KEY, $json, time() + (86400 * 30));
+        } else {
+            Cookies::set(AUTH_KEY, $json);
+        }
+        $GLOBALS[AUTH_KEY] = $json;
+        return true;
+    }
+
     /**
      * Logout
      * 

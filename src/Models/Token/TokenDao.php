@@ -42,7 +42,7 @@ class TokenDao extends BaseDao
 
     public function insert(TokenEntity $token): bool
     {
-        $sql = "INSERT INTO `tokens` (`uid`, `user_uid`, `token_type`, `token `, `created_at`, `expired_at`) VALUES (:uid, :user_uid, :token_type, :token , :created_at, :expired_at)";
+        $sql = "INSERT INTO `tokens` (`uid`, `user_uid`, `token_type`, `token`, `created_at`, `expired_at`) VALUES (:uid, :user_uid, :token_type, :token , :created_at, :expired_at)";
         $this->db->setSql($sql);
         $this->db->setParam(":uid", $token->uid);
         $this->db->setParam(":user_uid", $token->user_uid);

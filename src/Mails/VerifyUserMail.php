@@ -2,16 +2,19 @@
 
 namespace Src\Mails;
 
+use Src\Models\Token\TokenEntity;
 use Src\Models\User\UserEntity;
 use stdClass;
 
 class VerifyUserMail extends BaseMail
 {
     protected UserEntity|stdClass $user;
+    protected TokenEntity|stdClass $token;
 
-    public function __construct(UserEntity|stdClass $user)
+    public function __construct(UserEntity|stdClass $user, TokenEntity|stdClass $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
     public function addAddresses(): array
@@ -28,11 +31,11 @@ class VerifyUserMail extends BaseMail
 
     public function addBody(): string
     {
-        return "mails.login";
+        return "mails.verify-email";
     }
 
     public function addBodyData(): array
     {
-        return ["user" => $this->user];
+        return ["user" => $this->user, "token" => $this->token];
     }
 }

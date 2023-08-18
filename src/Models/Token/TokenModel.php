@@ -47,6 +47,10 @@ class TokenModel extends BaseModel
         $token->token = Str::random(64);
         $token->created_at = DateTime::unixTimestamp();
         $token->expired_at = $expired_at;
-        return $this->token_dao->insert($token);
+        if ($this->token_dao->insert($token)) {
+            return $token;
+        } else {
+            return null;
+        }
     }
 }

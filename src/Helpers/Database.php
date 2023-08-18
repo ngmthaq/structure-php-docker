@@ -155,7 +155,7 @@ final class Database
             }
             return null;
         } catch (\Throwable $th) {
-            Dev::writeLog("SQL: " . $this->sql . ", params: " . json_encode($this->params) . "Error: " . $th->getMessage(), "db", LOG_STATUS_ERROR);
+            Dev::writeLog("SQL: " . $this->sql . ", params: " . json_encode($this->params) . ". Error: " . $th->getMessage(), "db", LOG_STATUS_ERROR);
             throw $th;
         }
     }

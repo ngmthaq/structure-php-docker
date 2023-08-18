@@ -49,8 +49,19 @@ class UserDao extends BaseDao
         $this->db->setParam(":name", $user->name);
         $this->db->setParam(":email", $user->email);
         $this->db->setParam(":password", Hash::make($user->password));
-        $this->db->setParam(":created_at", DateTime::unixTimestamp());
-        $this->db->setParam(":updated_at", DateTime::unixTimestamp());
+        $this->db->setParam(":created_at", DateTime::unixTimestamp(), PDO::PARAM_INT);
+        $this->db->setParam(":updated_at", DateTime::unixTimestamp(), PDO::PARAM_INT);
+        $stm = $this->db->execute();
+        return isset($stm);
+    }
+
+    public function verifyUser(UserEntity $user): bool
+    {
+        $sql = "UPDATE `users` SET `email_verified_at` = :email_verified_at, `updated_at` = :updated_at WHERE `uid` = :uid";
+        $this->db->setSql($sql);
+        $this->db->setParam(":email_verified_at", $user->email_verified_at, PDO::PARAM_INT);
+        $this->db->setParam(":updated_at", DateTime::unixTimestamp(), PDO::PARAM_INT);
+        $this->db->setParam(":uid", $user->uid);
         $stm = $this->db->execute();
         return isset($stm);
     }

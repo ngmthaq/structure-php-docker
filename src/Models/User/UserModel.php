@@ -37,4 +37,9 @@ class UserModel extends BaseModel
     {
         return $this->user_dao->insert($user);
     }
+
+    public function verifyUser(UserEntity $user)
+    {
+        return $this->user_dao->verifyUser($user);
+    }
 }

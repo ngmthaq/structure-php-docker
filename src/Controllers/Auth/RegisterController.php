@@ -8,6 +8,7 @@ use Src\Controllers\BaseController;
 use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Helpers\Str;
+use Src\Models\Token\TokenModel;
 use Src\Models\User\UserEntity;
 use Src\Models\User\UserModel;
 
@@ -20,21 +21,39 @@ class RegisterController extends BaseController
 
     public function register()
     {
-        extract($this->req->getInputs());
-        $uid = Str::uuid();
-        $user = new UserEntity();
-        $user->uid = $uid;
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = $password;
-        $user_model = new UserModel();
-        $is_created = $user_model->insert($user);
-        if ($is_created) {
-            $user = $user_model->findOneByUid($uid);
-            Dispatch::event(new NewUserRegisteredEvent($user));
-            Session::setFlashMessage("success", "Signup successfully. Please check your email to verify your account");
-            $this->res->redirect("/login");
-        } else {
+        $this->db->begin();
+        try {
+            extract($this->req->getInputs());
+            $uid = Str::uuid();
+            $user = new UserEntity();
+            $user->uid = $uid;
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = $password;
+            $user_model = new UserModel();
+            $is_created = $user_model->insert($user);
+            if ($is_created) {
+                $user = $user_model->findOneByUid($uid);
+                $token_model = new TokenModel();
+                $expired_at = time() + 1 * 24 * 60 * 60;
+                $token = $token_model->insert($user, TokenModel::TYPE_VERIFY_EMAIL, $expired_at);
+                if ($token) {
+                    Dispatch::event(new NewUserRegisteredEvent($user, $token));
+                    Session::setFlashMessage("success", "Signup successfully. Please check your email to verify your account");
+                    $this->db->commit();
+                    $this->res->redirect("/login");
+                } else {
+                    $this->db->rollBack();
+                    Session::setFlashMessage("error", "Something went wrong. Please try again later");
+                    $this->res->reload();
+                }
+            } else {
+                $this->db->rollBack();
+                Session::setFlashMessage("error", "Something went wrong. Please try again later");
+                $this->res->reload();
+            }
+        } catch (\Throwable $th) {
+            $this->db->rollBack();
             Session::setFlashMessage("error", "Something went wrong. Please try again later");
             $this->res->reload();
         }

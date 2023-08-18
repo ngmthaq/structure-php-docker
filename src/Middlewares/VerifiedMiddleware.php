@@ -2,6 +2,7 @@
 
 namespace Src\Middlewares;
 
+use Src\Helpers\Auth;
 use Src\Helpers\Session;
 
 class VerifiedMiddleware extends BaseMiddleware
@@ -12,7 +13,8 @@ class VerifiedMiddleware extends BaseMiddleware
         if (isset($user) && $user->email_verified_at !== null) {
             $this->next();
         } else {
-            Session::setFlashMessage("email_not_verified", "Your email is not verified");
+            Auth::logout();
+            Session::setFlashMessage("error", "Your email is not verified");
             $this->res->redirect("/login");
         }
     }

@@ -29,6 +29,7 @@ function run()
             Dev::writeLog(json_encode($job), "queue");
             run();
         } catch (\Throwable $th) {
+            $queue_model->setDone($job->uid);
             Dev::writeLog(json_encode($th->getMessage()), "error", LOG_STATUS_ERROR);
             Dev::writeLog(json_encode($job), "queue", LOG_STATUS_ERROR);
         }
