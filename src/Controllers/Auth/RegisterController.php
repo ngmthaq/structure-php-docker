@@ -39,22 +39,22 @@ class RegisterController extends BaseController
                 $token = $token_model->insert($user, TokenModel::TYPE_VERIFY_EMAIL, $expired_at);
                 if ($token) {
                     Dispatch::event(new NewUserRegisteredEvent($user, $token));
-                    Session::setFlashMessage("success", "Signup successfully. Please check your email to verify your account");
+                    Session::setFlashMessage("alert_success", "Signup successfully. Please check your email to verify your account");
                     $this->db->commit();
                     $this->res->redirect("/login");
                 } else {
                     $this->db->rollBack();
-                    Session::setFlashMessage("error", "Something went wrong. Please try again later");
+                    Session::setFlashMessage("alert_error", "Something went wrong. Please try again later");
                     $this->res->reload();
                 }
             } else {
                 $this->db->rollBack();
-                Session::setFlashMessage("error", "Something went wrong. Please try again later");
+                Session::setFlashMessage("alert_error", "Something went wrong. Please try again later");
                 $this->res->reload();
             }
         } catch (\Throwable $th) {
             $this->db->rollBack();
-            Session::setFlashMessage("error", "Something went wrong. Please try again later");
+            Session::setFlashMessage("alert_error", "Something went wrong. Please try again later");
             $this->res->reload();
         }
     }

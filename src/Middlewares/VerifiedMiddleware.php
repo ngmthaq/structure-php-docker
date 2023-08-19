@@ -14,7 +14,7 @@ class VerifiedMiddleware extends BaseMiddleware
             $this->next();
         } else {
             Auth::logout();
-            Session::setFlashMessage("error", "Your email is not verified");
+            Session::setFlashMessage("alert_error", "Your email is not verified");
             $this->res->redirect("/login");
         }
     }

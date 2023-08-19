@@ -18,22 +18,22 @@ class VerifyController extends BaseController
         $token_model = new TokenModel();
         $token = $token_model->findOneByToken($token_value);
         if (!$token) {
-            Session::setFlashMessage("error", "Cannot verify your account");
+            Session::setFlashMessage("alert_error", "Cannot verify your account");
             $this->res->redirect("/login");
         }
         $user_model = new UserModel();
         $user = $user_model->findOneByUid($token->user_uid);
         if (!$user) {
-            Session::setFlashMessage("error", "Cannot verify your account");
+            Session::setFlashMessage("alert_error", "Cannot verify your account");
             $this->res->redirect("/login");
         }
         $user->email_verified_at = DateTime::unixTimestamp();
         $is_updated = $user_model->verifyUser($user);
         if (!$is_updated) {
-            Session::setFlashMessage("error", "Cannot verify your account");
+            Session::setFlashMessage("alert_error", "Cannot verify your account");
             $this->res->redirect("/login");
         }
-        Session::setFlashMessage("success", "Verify your email successfully");
+        Session::setFlashMessage("alert_success", "Verify your email successfully");
         Auth::loginWithUid($user->uid);
         $this->res->redirect("/");
     }
