@@ -47,4 +47,9 @@ class VerifyController extends BaseController
             $this->res->redirect("/login");
         }
     }
+
+    public function alert()
+    {
+        $this->res->renderView("pages.verify");
+    }
 }

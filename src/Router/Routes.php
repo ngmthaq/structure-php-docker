@@ -80,6 +80,13 @@ final class Routes extends Configs
         ]);
 
         $this->get([
+            "path" => "/verify/alert",
+            "controller" => VerifyController::class,
+            "action" => "alert",
+            "middlewares" => [AuthMiddleware::class],
+        ]);
+
+        $this->get([
             "path" => "/password/forget",
             "controller" => ForgetPasswordController::class,
             "action" => "forgetPassword",

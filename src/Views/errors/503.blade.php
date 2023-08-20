@@ -4,7 +4,7 @@
 
 @push('css')
     <style>
-        #base-layout {
+        #layout {
             width: 100vw;
             height: 100vh;
             display: flex;

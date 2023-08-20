@@ -6,18 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('description')">
-    <meta name="keywords" content="@yield('keywords')">
-    <meta name="author" content="{{ AUTHOR }}">
-    <meta name="{{ XSRF_KEY }}" content="{{ $_SESSION[XSRF_KEY] }}">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="@yield('title')">
-    <meta property="og:url" content="@yield('url')">
-    <meta property="og:image" content="@yield('image')">
-    <meta property="og:description" content="@yield('description')">
-    <meta property="business:contact_data:street_address" content="{{ STREET_ADDRESS }}">
-    <meta property="business:contact_data:country_name" content="{{ COUNTRY }}">
     {{-- END META TAGS --}}
+
+    @stack('meta')
 
     {{-- LINK TAGS --}}
     <link rel="shortcut icon" href="{{ Dir::assets('img/favicon.ico') }}" type="image/x-icon">
@@ -26,6 +17,8 @@
     <link rel="stylesheet" href="{{ Dir::assets('libs/bootstrap-icons/font/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ Dir::assets('css/style.css') }}">
     {{-- END LINK TAGS --}}
+
+    @stack('link')
 
     <title>@yield('title')</title>
 
@@ -41,11 +34,12 @@
     {{-- END ALERT CONTAINER CSS --}}
 
     @stack('css')
+
 </head>
 
 <body>
     {{-- LAYOUT --}}
-    <div id="base-layout">
+    <div id="layout">
         <div id="alert-container"></div>
         @yield('base-content')
     </div>
@@ -54,11 +48,15 @@
     {{-- LIB SCRIPTS --}}
     <script src="{{ Dir::assets('libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ Dir::assets('libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ Dir::assets('js/main.js') }}"></script>
     {{-- END LIB SCRIPTS --}}
+
+    @stack('js_libs')
+
+    @stack('js_modules')
 
     {{-- MODULE SCRIPTS --}}
     <script src="{{ Dir::assets('js/modules/alert.module.js') }}"></script>
+    <script src="{{ Dir::assets('js/main.js') }}"></script>
     {{-- END MODULE SCRIPTS --}}
 
     {{-- ALERT SCRIPT --}}
