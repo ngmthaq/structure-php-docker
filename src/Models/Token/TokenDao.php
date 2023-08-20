@@ -53,4 +53,21 @@ class TokenDao extends BaseDao
         $stm = $this->db->execute();
         return isset($stm);
     }
+
+    public function delete(TokenEntity $token): bool
+    {
+        $this->db->setSql("DELETE FROM `tokens` WHERE `uid` = :uid");
+        $this->db->setParam(":uid", $token->uid);
+        $stm = $this->db->execute();
+        return isset($stm);
+    }
+
+    public function deleteExpiredTokens(): bool
+    {
+        $time = time();
+        $this->db->setSql("DELETE FROM `tokens` WHERE `expired_at` < :time");
+        $this->db->setParam(":time", $time);
+        $stm = $this->db->execute();
+        return isset($stm);
+    }
 }

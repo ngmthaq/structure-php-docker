@@ -53,4 +53,14 @@ class TokenModel extends BaseModel
             return null;
         }
     }
+
+    public function delete(TokenEntity $token)
+    {
+        return $this->token_dao->delete($token);
+    }
+
+    public function deleteExpiredTokens()
+    {
+        return $this->token_dao->deleteExpiredTokens();
+    }
 }
