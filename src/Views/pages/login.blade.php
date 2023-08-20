@@ -34,7 +34,7 @@
 @section('base-content')
     <div class="container">
         <div class="row justify-content-center align-content-center h-100vh">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-7 col-sm-10 col-12">
                 <div class="wrap">
                     <div class="img" style="background-image: url(/img/login-background.jpg);"></div>
                     <div class="login-wrap p-4">
@@ -55,6 +55,9 @@
                         </div>
                         <form action="/login" method="post" class="signin-form" autocomplete="on">
                             {{ csrf() }}
+                            @if (isset($params['back_url']))
+                                <input type="hidden" name="back_url" value="{{ $params['back_url'] }}">
+                            @endif
                             <div class="form-group mt-3">
                                 <label class="form-label required" for="email">Email</label>
                                 <input type="text" class="form-control" id="email" name="email">
