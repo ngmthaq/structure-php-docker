@@ -5,6 +5,7 @@ namespace Src\Controllers\Auth;
 use Src\Actions\Dispatch;
 use Src\Actions\Events\NewUserRegisteredEvent;
 use Src\Controllers\BaseController;
+use Src\Helpers\Auth;
 use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Helpers\Str;
@@ -40,8 +41,9 @@ class RegisterController extends BaseController
                 if ($token) {
                     Dispatch::event(new NewUserRegisteredEvent($user, $token));
                     Session::setFlashMessage("alert_success", "Signup successfully. Please check your email to verify your account");
+                    Auth::loginWithUid($user->uid);
                     $this->db->commit();
-                    $this->res->redirect("/login");
+                    $this->res->redirect("/");
                 } else {
                     $this->db->rollBack();
                     Session::setFlashMessage("alert_error", "Something went wrong. Please try again later");

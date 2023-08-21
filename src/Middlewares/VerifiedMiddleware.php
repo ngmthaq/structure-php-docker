@@ -13,8 +13,7 @@ class VerifiedMiddleware extends BaseMiddleware
         if (isset($user) && $user->email_verified_at !== null) {
             $this->next();
         } else {
-            Session::setFlashMessage("alert_error", "Your email is not verified");
-            $this->res->redirect("/verify/alert");
+            $this->res->renderView("pages.verify");
         }
     }
 }

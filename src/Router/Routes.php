@@ -76,14 +76,7 @@ final class Routes extends Configs
             "path" => "/verify",
             "controller" => VerifyController::class,
             "action" => "index",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
-
-        $this->get([
-            "path" => "/verify/alert",
-            "controller" => VerifyController::class,
-            "action" => "alert",
-            "middlewares" => [AuthMiddleware::class],
+            "middlewares" => [],
         ]);
 
         $this->get([
@@ -104,14 +97,7 @@ final class Routes extends Configs
             "path" => "/password/change",
             "controller" => ChangePasswordController::class,
             "action" => "index",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
-
-        $this->post([
-            "path" => "/password/forget",
-            "controller" => ForgetPasswordController::class,
-            "action" => "sendMailForgetPassword",
-            "middlewares" => [GuestMiddleware::class],
+            "middlewares" => [AuthMiddleware::class],
         ]);
 
         $this->post([
@@ -148,6 +134,13 @@ final class Routes extends Configs
             "path" => "/password/reset",
             "controller" => ForgetPasswordController::class,
             "action" => "changePassword",
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->put([
+            "path" => "/password/forget",
+            "controller" => ForgetPasswordController::class,
+            "action" => "sendMailForgetPassword",
             "middlewares" => [GuestMiddleware::class],
         ]);
     }
