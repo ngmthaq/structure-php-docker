@@ -63,4 +63,9 @@ class TokenModel extends BaseModel
     {
         return $this->token_dao->deleteExpiredTokens();
     }
+
+    public function deleteAllUserTokens(UserEntity $user, string $type)
+    {
+        return $this->token_dao->deleteAllUserTokens($user, $type);
+    }
 }

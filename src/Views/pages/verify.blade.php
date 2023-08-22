@@ -8,4 +8,13 @@
 
 @section('base-content')
     <h2>You are not verified</h2>
+    <form action="/logout" method="post">
+        {{ csrf() }}
+        <button type="submit">Logout</button>
+    </form>
+    <form action="/email/resent" method="post">
+        {{ csrf() }}
+        <button type="submit">Resent verify email</button>
+    </form>
 @endsection
+                                                         

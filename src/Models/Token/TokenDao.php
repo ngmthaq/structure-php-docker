@@ -5,6 +5,7 @@ namespace Src\Models\Token;
 use PDO;
 use Src\Helpers\DateTime;
 use Src\Models\Base\BaseDao;
+use Src\Models\User\UserEntity;
 
 class TokenDao extends BaseDao
 {
@@ -67,6 +68,15 @@ class TokenDao extends BaseDao
         $time = time();
         $this->db->setSql("DELETE FROM `tokens` WHERE `expired_at` < :time");
         $this->db->setParam(":time", $time);
+        $stm = $this->db->execute();
+        return isset($stm);
+    }
+
+    public function deleteAllUserTokens(UserEntity $user, string $type): bool
+    {
+        $this->db->setSql("DELETE FROM `tokens` WHERE `user_uid` = :uid AND `token_type` = :type");
+        $this->db->setParam(":uid", $user->uid);
+        $this->db->setParam(":type", $type);
         $stm = $this->db->execute();
         return isset($stm);
     }

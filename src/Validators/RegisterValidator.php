@@ -3,6 +3,7 @@
 namespace Src\Validators;
 
 use Src\Helpers\Str;
+use Src\Models\User\UserModel;
 
 class RegisterValidator extends BaseValidator
 {
@@ -13,14 +14,21 @@ class RegisterValidator extends BaseValidator
         $password = $this->req->getInputs("password");
         $name = $this->req->getInputs("name");
 
-        if (!$email) {
+        if (isset($email)) {
+            if (Str::isEmail($email)) {
+                $user_model = new UserModel();
+                $user = $user_model->findOneByEmail($email);
+                if (isset($user)) {
+                    $isValidated = false;
+                    $this->setMessage("email", "Email is existed in our system");
+                }
+            } else {
+                $isValidated = false;
+                $this->setMessage("email", "Email is invalid");
+            }
+        } else {
             $isValidated = false;
             $this->setMessage("email", "Email is required");
-        }
-
-        if ($email && !Str::isEmail($email)) {
-            $isValidated = false;
-            $this->setMessage("email", "Email is invalid");
         }
 
         if (!$password) {

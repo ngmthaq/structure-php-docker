@@ -13,7 +13,7 @@ class VerifiedMiddleware extends BaseMiddleware
         if (isset($user) && $user->email_verified_at !== null) {
             $this->next();
         } else {
-            $this->res->renderView("pages.verify");
+            $this->res->renderView("pages.verify", [], STT_FORBIDDEN);
         }
     }
 }

@@ -16,6 +16,7 @@ use Src\Middlewares\VerifiedMiddleware;
 use Src\Middlewares\XsrfMiddleware;
 use Src\Validators\LoginValidator;
 use Src\Validators\RegisterValidator;
+use Src\Validators\VerifyValidator;
 
 final class Routes extends Configs
 {
@@ -76,6 +77,7 @@ final class Routes extends Configs
             "path" => "/verify",
             "controller" => VerifyController::class,
             "action" => "index",
+            "validator" => VerifyValidator::class,
             "middlewares" => [],
         ]);
 
@@ -121,6 +123,13 @@ final class Routes extends Configs
             "action" => "register",
             "validator" => RegisterValidator::class,
             "middlewares" => [GuestMiddleware::class],
+        ]);
+
+        $this->post([
+            "path" => "/email/resent",
+            "controller" => VerifyController::class,
+            "action" => "resent",
+            "middlewares" => [AuthMiddleware::class],
         ]);
 
         $this->put([

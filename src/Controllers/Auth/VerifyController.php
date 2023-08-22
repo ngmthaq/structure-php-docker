@@ -2,6 +2,8 @@
 
 namespace Src\Controllers\Auth;
 
+use Src\Actions\Dispatch;
+use Src\Actions\Events\NewUserRegisteredEvent;
 use Src\Controllers\BaseController;
 use Src\Helpers\Auth;
 use Src\Helpers\DateTime;
@@ -23,16 +25,21 @@ class VerifyController extends BaseController
                 $user_model = new UserModel();
                 $user = $user_model->findOneByUid($token->user_uid);
                 if ($user) {
-                    $user->email_verified_at = DateTime::unixTimestamp();
-                    $is_updated = $user_model->verifyUser($user);
-                    if ($is_updated) {
-                        $token_model->delete($token);
-                        Session::setFlashMessage("alert_success", "Verify your email successfully");
-                        Auth::loginWithUid($user->uid);
-                        $this->res->redirect("/");
-                    } else {
-                        Session::setFlashMessage("alert_error", "Cannot verify your account");
+                    if ($user->email_verified_at) {
+                        Session::setFlashMessage("alert_error", "Your email has verified before");
                         $this->res->redirect("/login");
+                    } else {
+                        $user->email_verified_at = DateTime::unixTimestamp();
+                        $is_updated = $user_model->verifyUser($user);
+                        if ($is_updated) {
+                            $token_model->delete($token);
+                            Session::setFlashMessage("alert_success", "Verify your email successfully");
+                            Auth::loginWithUid($user->uid);
+                            $this->res->redirect("/");
+                        } else {
+                            Session::setFlashMessage("alert_error", "Cannot verify your account");
+                            $this->res->redirect("/login");
+                        }
                     }
                 } else {
                     Session::setFlashMessage("alert_error", "Cannot verify your account");
@@ -48,8 +55,29 @@ class VerifyController extends BaseController
         }
     }
 
-    public function alert()
+    public function resent()
     {
-        $this->res->renderView("pages.verify");
+        try {
+            $user = Auth::user();
+            if ($user->email_verified_at) {
+                Session::setFlashMessage("alert_error", "Your email has verified before");
+                $this->res->redirect("/");
+            } else {
+                $token_model = new TokenModel();
+                $expired_at = time() + 1 * 24 * 60 * 60;
+                $token_model->deleteAllUserTokens($user, TokenModel::TYPE_VERIFY_EMAIL);
+                $token = $token_model->insert($user, TokenModel::TYPE_VERIFY_EMAIL, $expired_at);
+                if ($token) {
+                    Dispatch::event(new NewUserRegisteredEvent($user, $token));
+                    Session::setFlashMessage("alert_success", "Check your email");
+                } else {
+                    Session::setFlashMessage("alert_error", "Fail");
+                }
+                $this->res->redirect("/");
+            }
+        } catch (\Throwable $th) {
+            Session::setFlashMessage("alert_error", "Fail something");
+            $this->res->redirect("/");
+        }
     }
 }
