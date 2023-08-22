@@ -10,7 +10,7 @@ class LoginController extends BaseController
 {
     public function index()
     {
-        $this->res->renderView("pages.login");
+        $this->res->renderView("pages.auth.login");
     }
 
     public function login()

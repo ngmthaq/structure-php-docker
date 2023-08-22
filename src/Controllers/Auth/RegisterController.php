@@ -17,7 +17,7 @@ class RegisterController extends BaseController
 {
     public function index()
     {
-        $this->res->renderView("pages.register");
+        $this->res->renderView("pages.auth.register");
     }
 
     public function register()
