@@ -8,7 +8,7 @@ class ForgetPasswordController extends BaseController
 {
     public function forgetPassword()
     {
-        //
+        $this->res->renderView("pages.auth.password.forget");
     }
 
     public function resetPassword()

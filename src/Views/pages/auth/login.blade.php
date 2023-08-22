@@ -86,7 +86,7 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <a href="#">Forgot Password</a>
+                                    <a href="/password/forget">Forgot Password</a>
                                 </div>
                             </div>
                         </form>
