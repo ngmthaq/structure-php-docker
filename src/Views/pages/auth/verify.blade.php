@@ -6,7 +6,7 @@
 
 @section('keywords', 'PHP')
 
-@section('base-content')
+@section('body')
     <h2>You are not verified</h2>
     <form action="/logout" method="post">
         {{ csrf() }}

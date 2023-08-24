@@ -6,7 +6,7 @@ use Src\Models\Token\TokenEntity;
 use Src\Models\User\UserEntity;
 use stdClass;
 
-class VerifyUserMail extends BaseMail
+class ForgetPasswordMail extends BaseMail
 {
     protected UserEntity|stdClass $user;
     protected TokenEntity|stdClass $token;
@@ -26,12 +26,12 @@ class VerifyUserMail extends BaseMail
 
     public function addSubject(): string
     {
-        return "Verify User";
+        return "Forget password";
     }
 
     public function addBody(): string
     {
-        return "mails.verify-email";
+        return "mails.forget-password-email";
     }
 
     public function addBodyData(): array

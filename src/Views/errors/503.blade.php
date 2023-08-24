@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('base-content')
+@section('body')
     <h1>503</h1>
     <p>
         <i>The page was unable to load at this time</i>

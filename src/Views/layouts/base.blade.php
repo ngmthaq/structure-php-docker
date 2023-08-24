@@ -41,7 +41,7 @@
     {{-- LAYOUT --}}
     <div id="layout">
         <div id="alert-container"></div>
-        @yield('base-content')
+        @yield('body')
     </div>
     {{-- END LAYOUT --}}
 

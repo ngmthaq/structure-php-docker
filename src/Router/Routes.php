@@ -14,6 +14,7 @@ use Src\Middlewares\GuestMiddleware;
 use Src\Middlewares\ThrottleMiddleware;
 use Src\Middlewares\VerifiedMiddleware;
 use Src\Middlewares\XsrfMiddleware;
+use Src\Validators\ForgetPasswordValidator;
 use Src\Validators\LoginValidator;
 use Src\Validators\RegisterValidator;
 use Src\Validators\VerifyValidator;
@@ -91,7 +92,7 @@ final class Routes extends Configs
         $this->get([
             "path" => "/password/reset",
             "controller" => ForgetPasswordController::class,
-            "action" => "resetPassword",
+            "action" => "renderResetPasswordView",
             "middlewares" => [GuestMiddleware::class],
         ]);
 
@@ -132,6 +133,14 @@ final class Routes extends Configs
             "middlewares" => [AuthMiddleware::class],
         ]);
 
+        $this->post([
+            "path" => "/password/forget",
+            "controller" => ForgetPasswordController::class,
+            "action" => "sendMailForgetPassword",
+            "validator" => ForgetPasswordValidator::class,
+            "middlewares" => [GuestMiddleware::class],
+        ]);
+
         $this->put([
             "path" => "/password/change",
             "controller" => ChangePasswordController::class,
@@ -142,14 +151,7 @@ final class Routes extends Configs
         $this->put([
             "path" => "/password/reset",
             "controller" => ForgetPasswordController::class,
-            "action" => "changePassword",
-            "middlewares" => [GuestMiddleware::class],
-        ]);
-
-        $this->put([
-            "path" => "/password/forget",
-            "controller" => ForgetPasswordController::class,
-            "action" => "sendMailForgetPassword",
+            "action" => "resetPassword",
             "middlewares" => [GuestMiddleware::class],
         ]);
     }

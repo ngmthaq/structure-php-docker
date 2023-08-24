@@ -15,6 +15,8 @@ use Src\Models\User\UserModel;
 
 class RegisterController extends BaseController
 {
+    public const VERIFY_TOKEN_EXPIRED_AFTER = 1 * 24 * 60 * 60; // 1 day
+
     public function index()
     {
         $this->res->renderView("pages.auth.register");
@@ -36,7 +38,7 @@ class RegisterController extends BaseController
             if ($is_created) {
                 $user = $user_model->findOneByUid($uid);
                 $token_model = new TokenModel();
-                $expired_at = time() + 1 * 24 * 60 * 60;
+                $expired_at = time() + self::VERIFY_TOKEN_EXPIRED_AFTER;
                 $token = $token_model->insert($user, TokenModel::TYPE_VERIFY_EMAIL, $expired_at);
                 if ($token) {
                     Dispatch::event(new NewUserRegisteredEvent($user, $token));

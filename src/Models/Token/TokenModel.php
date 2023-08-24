@@ -10,6 +10,7 @@ use Src\Models\User\UserEntity;
 class TokenModel extends BaseModel
 {
     public const TYPE_VERIFY_EMAIL = "TYPE_VERIFY_EMAIL";
+    public const TYPE_FORGET_PASSWORD = "TYPE_FORGET_PASSWORD";
 
     protected TokenDao $token_dao;
 

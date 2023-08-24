@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('base-content')
+@section('body')
     <h1>403</h1>
     <p>
         <i>You don't have permission to access {{ Header::getFullUrl() }}</i>

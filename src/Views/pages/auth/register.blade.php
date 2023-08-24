@@ -31,7 +31,7 @@
     </style>
 @endpush
 
-@section('base-content')
+@section('body')
     <div class="container">
         <div class="row justify-content-center align-content-center h-100vh">
             <div class="col-4">

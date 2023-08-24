@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('base-content')
+@section('body')
     <h1>500</h1>
     <p>
         <i>Oops! Some thing wrong, please try again later</i>

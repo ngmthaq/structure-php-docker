@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('base-content')
+@section('body')
     <h1>404</h1>
     <p>
         <i>The page you are looking for was not found</i>
