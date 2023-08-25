@@ -6,6 +6,7 @@ use Src\Actions\Dispatch;
 use Src\Actions\Events\SendForgetPasswordMailEvent;
 use Src\Controllers\BaseController;
 use Src\Helpers\Auth;
+use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Models\Token\TokenModel;
 use Src\Models\User\UserModel;
@@ -28,13 +29,25 @@ class ForgetPasswordController extends BaseController
         } else {
             $token_model = new TokenModel();
             $token = $token_model->findOneByToken($token_value);
-            $user_model = new UserModel();
-            $user = $user_model->findOneByUid($token->user_uid);
-            if (empty($user)) {
+            $token_model->deleteExpiredTokens();
+            if (isset($token)) {
+                if ($token->expired_at < time()) {
+                    $token_model->delete($token);
+                    Session::setFlashMessage("alert_error", "We cannot verify your account");
+                    $this->res->redirect("/login");
+                } else {
+                    $user_model = new UserModel();
+                    $user = $user_model->findOneByUid($token->user_uid);
+                    if (empty($user)) {
+                        Session::setFlashMessage("alert_error", "We cannot verify your account");
+                        $this->res->redirect("/login");
+                    } else {
+                        $this->res->renderView("pages.auth.password.reset");
+                    }
+                }
+            } else {
                 Session::setFlashMessage("alert_error", "We cannot verify your account");
                 $this->res->redirect("/login");
-            } else {
-                $this->res->renderView("pages.auth.password.reset");
             }
         }
     }

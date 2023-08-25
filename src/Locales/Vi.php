@@ -11,11 +11,6 @@ final class Vi
      */
     public static function register()
     {
-        return [
-            "login" => "Đăng nhập",
-            "email" => "Email",
-            "password" => "Mật khẩu",
-            "hello" => "Xin chào"
-        ];
+        return [];
     }
 }

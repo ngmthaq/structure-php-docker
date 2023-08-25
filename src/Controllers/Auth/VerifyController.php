@@ -46,7 +46,7 @@ class VerifyController extends BaseController
                     $this->res->redirect("/login");
                 }
             } else {
-                Session::setFlashMessage("alert_error", "Your token is expired");
+                Session::setFlashMessage("alert_error", "Cannot verify your account");
                 $this->res->redirect("/login");
             }
         } else {
@@ -69,14 +69,14 @@ class VerifyController extends BaseController
                 $token = $token_model->insert($user, TokenModel::TYPE_VERIFY_EMAIL, $expired_at);
                 if ($token) {
                     Dispatch::event(new NewUserRegisteredEvent($user, $token));
-                    Session::setFlashMessage("alert_success", "Check your email");
+                    Session::setFlashMessage("alert_success", "We have sent a link to your email, please check it");
                 } else {
-                    Session::setFlashMessage("alert_error", "Fail");
+                    Session::setFlashMessage("alert_error", "Something wrong, please try again later");
                 }
                 $this->res->redirect("/");
             }
         } catch (\Throwable $th) {
-            Session::setFlashMessage("alert_error", "Fail something");
+            Session::setFlashMessage("alert_error", "Something wrong, please try again later");
             $this->res->redirect("/");
         }
     }

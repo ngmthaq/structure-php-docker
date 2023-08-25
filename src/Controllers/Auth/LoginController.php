@@ -20,7 +20,7 @@ class LoginController extends BaseController
             $back_url = $this->req->getInputs("back_url");
             $this->res->redirect(isset($back_url) ? $back_url : "/");
         } else {
-            Session::setFlashMessage("alert_error", "Email hoặc mật khẩu không chính xác");
+            Session::setFlashMessage("alert_error", "Your email or password is incorrect");
             $this->res->reload();
         }
     }
