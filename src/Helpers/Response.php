@@ -29,12 +29,22 @@ final class Response
         echo $output;
     }
 
+    /**
+     * Send pre-light response
+     * 
+     * @return void
+     */
     public function sendPreLight()
     {
         http_response_code(STT_NO_CONTENT);
         header("Content-Type: application/json; charset=utf-8");
     }
 
+    /**
+     * Send STT_SERVICE_UNAVAILABLE response
+     * 
+     * @return void
+     */
     public function sendUnavailableStatus()
     {
         http_response_code(STT_SERVICE_UNAVAILABLE);
@@ -80,6 +90,11 @@ final class Response
         return gettype($output) === "string" ? $output : "";
     }
 
+    /**
+     * Render view
+     * 
+     * @return void
+     */
     public function renderView(string $view, array $data = [], int $status = STT_OK): void
     {
         $output = $this->getViewHtml($view, $data);

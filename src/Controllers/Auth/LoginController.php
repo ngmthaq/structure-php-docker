@@ -8,12 +8,22 @@ use Src\Helpers\Session;
 
 class LoginController extends BaseController
 {
-    public function index()
+    /**
+     * Render login view
+     * 
+     * @return void
+     */
+    public function index(): void
     {
         $this->res->renderView("pages.auth.login");
     }
 
-    public function login()
+    /**
+     * Handle login logic
+     * 
+     * @return void
+     */
+    public function login(): void
     {
         extract($this->req->getInputs());
         if (Auth::login($email, $password, $this->req->getInputs("is_remember") !== null)) {
@@ -25,7 +35,12 @@ class LoginController extends BaseController
         }
     }
 
-    public function logout()
+    /**
+     * Handle logout logic
+     * 
+     * @return void
+     */
+    public function logout(): void
     {
         Auth::logout();
         $this->res->redirect("/login");

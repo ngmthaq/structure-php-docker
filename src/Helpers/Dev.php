@@ -48,6 +48,14 @@ final class Dev
         }
     }
 
+    /**
+     * Write log
+     * 
+     * @param string $message
+     * @param string $file_name
+     * @param string $status
+     * @return void
+     */
     public static function writeLog(string $message, string $file_name, string $status = LOG_STATUS_INFO)
     {
         $log_dir = Dir::getDirFromSrc("/Cached/Logs");

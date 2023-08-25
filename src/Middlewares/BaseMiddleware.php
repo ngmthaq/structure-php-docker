@@ -22,11 +22,21 @@ abstract class BaseMiddleware extends stdClass
         $this->db = $GLOBALS[DATABASE_GLOBAL_KEY];
     }
 
+    /**
+     * Handle next function
+     * 
+     * @return void
+     */
     protected function next()
     {
         $next = $this->next_function;
         $next();
     }
 
+    /**
+     * Handle middleware logic
+     * 
+     * @return void
+     */
     abstract public function handle(): void;
 }

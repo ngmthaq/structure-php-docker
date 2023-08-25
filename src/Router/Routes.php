@@ -58,6 +58,41 @@ final class Routes extends Configs
         //
     }
 
+    /**
+     * RRegister routes with PUT method
+     * 
+     * @return void
+     */
+    public function registerPutRoutes()
+    {
+        //
+    }
+
+    /**
+     * RRegister routes with PATCH method
+     * 
+     * @return void
+     */
+    public function registerPatchRoutes()
+    {
+        //
+    }
+
+    /**
+     * RRegister routes with DELETE method
+     * 
+     * @return void
+     */
+    public function registerDeleteRoutes()
+    {
+        //
+    }
+
+    /**
+     * RRegister auth routes
+     * 
+     * @return void
+     */
     public function registerAuthRoutes()
     {
         $this->get([
@@ -156,10 +191,18 @@ final class Routes extends Configs
         ]);
     }
 
+    /**
+     * Register
+     * 
+     * @return void
+     */
     public function register()
     {
+        $this->registerAuthRoutes();
         $this->registerGetRoutes();
         $this->registerPostRoutes();
-        $this->registerAuthRoutes();
+        $this->registerPutRoutes();
+        $this->registerPatchRoutes();
+        $this->registerDeleteRoutes();
     }
 }

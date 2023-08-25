@@ -19,6 +19,12 @@ final class Request
         $this->user     =   Auth::user();
     }
 
+    /**
+     * Get params in $_GET
+     * 
+     * @param string $key
+     * @return mixed
+     */
     public function getParams(string $key = "*")
     {
         if ($key === "*") {
@@ -30,6 +36,12 @@ final class Request
         }
     }
 
+    /**
+     * Get params in $_POST
+     * 
+     * @param string $key
+     * @return mixed
+     */
     public function getInputs(string $key = "*")
     {
         if ($key === "*") {
@@ -41,16 +53,32 @@ final class Request
         }
     }
 
+    /**
+     * Get params in $_FILES
+     * 
+     * @return mixed
+     */
     public function getFiles()
     {
         return $this->files;
     }
 
+    /**
+     * Get user
+     * 
+     * @return UserEntity|null
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     * Prepare array
+     * 
+     * @param array $array
+     * @return array
+     */
     public function prepareArray(array $array)
     {
         $output = [];

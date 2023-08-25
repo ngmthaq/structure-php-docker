@@ -7,14 +7,18 @@ use Src\Actions\Events\NewUserRegisteredEvent;
 use Src\Controllers\BaseController;
 use Src\Helpers\Auth;
 use Src\Helpers\DateTime;
-use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Models\Token\TokenModel;
 use Src\Models\User\UserModel;
 
 class VerifyController extends BaseController
 {
-    public function index()
+    /**
+     * Handle verify user logic
+     * 
+     * @return void
+     */
+    public function index(): void
     {
         $token_value = $this->req->getParams("token");
         $token_model = new TokenModel();
@@ -55,7 +59,12 @@ class VerifyController extends BaseController
         }
     }
 
-    public function resent()
+    /**
+     * Handle resent email
+     * 
+     * @return void
+     */
+    public function resent(): void
     {
         try {
             $user = Auth::user();

@@ -10,8 +10,19 @@ use stdClass;
 
 abstract class BaseController extends stdClass
 {
+    /**
+     * Database instance
+     */
     public Database $db;
+
+    /**
+     * Request instance
+     */
     public Request $req;
+
+    /**
+     * Response instance
+     */
     public Response $res;
 
     public function __construct()

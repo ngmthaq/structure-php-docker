@@ -12,7 +12,7 @@ final class Cookies
      * @param int $time
      * @return bool
      */
-    public static function set(string $name, string $value, int $time = 0)
+    public static function set(string $name, string $value, int $time = 0): bool
     {
         setcookie($name, $value, $time);
         return true;
@@ -24,7 +24,7 @@ final class Cookies
      * @param string $name
      * @return bool
      */
-    public static function remove(string $name)
+    public static function remove(string $name): bool
     {
         unset($_COOKIE[$name]);
         setcookie($name, "", -1);
@@ -37,7 +37,7 @@ final class Cookies
      * @param string $name
      * @return mixed
      */
-    public static function get(string $name)
+    public static function get(string $name): mixed
     {
         return isset($_COOKIE[$name]) ? $_COOKIE[$name] : null;
     }

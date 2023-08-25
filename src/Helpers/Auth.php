@@ -12,7 +12,7 @@ final class Auth
      * 
      * @return UserEntity|null
      */
-    public static function user()
+    public static function user(): UserEntity|null
     {
         try {
             $auth = null;
@@ -43,7 +43,7 @@ final class Auth
      * 
      * @return bool
      */
-    public static function check()
+    public static function check(): bool
     {
         $user = self::user();
         return isset($user);
@@ -57,7 +57,7 @@ final class Auth
      * @param bool $is_remember
      * @return bool
      */
-    public static function login(string $email, string $password, bool $is_remember = false)
+    public static function login(string $email, string $password, bool $is_remember = false): bool
     {
         try {
             $user_model = new UserModel();
@@ -80,7 +80,14 @@ final class Auth
         }
     }
 
-    public static function loginWithUid(string $uid, bool $is_remember = false)
+    /**
+     * Login with user uid
+     * 
+     * @param string $uid
+     * @param bool $is_remember
+     * @return bool
+     */
+    public static function loginWithUid(string $uid, bool $is_remember = false): bool
     {
         $hash_key = random_int(2, 16);
         $auth = Hash::rowFenceEncrypt($uid, $hash_key);
@@ -99,7 +106,7 @@ final class Auth
      * 
      * @return bool
      */
-    public static function logout()
+    public static function logout(): bool
     {
         try {
             Cookies::remove(AUTH_KEY);

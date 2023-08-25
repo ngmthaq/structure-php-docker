@@ -6,12 +6,22 @@ use Src\Controllers\BaseController;
 
 class ChangePasswordController extends BaseController
 {
-    public function index()
+    /**
+     * Render change password view
+     * 
+     * @return void
+     */
+    public function index(): void
     {
         //
     }
 
-    public function changePassword()
+    /**
+     * Handle logic change password
+     * 
+     * @return void
+     */
+    public function changePassword(): void
     {
         //
     }

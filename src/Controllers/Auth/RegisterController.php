@@ -6,7 +6,6 @@ use Src\Actions\Dispatch;
 use Src\Actions\Events\NewUserRegisteredEvent;
 use Src\Controllers\BaseController;
 use Src\Helpers\Auth;
-use Src\Helpers\Dev;
 use Src\Helpers\Session;
 use Src\Helpers\Str;
 use Src\Models\Token\TokenModel;
@@ -15,14 +14,27 @@ use Src\Models\User\UserModel;
 
 class RegisterController extends BaseController
 {
+    /**
+     * Expired time in unix timestamp
+     */
     public const VERIFY_TOKEN_EXPIRED_AFTER = 1 * 24 * 60 * 60; // 1 day
 
-    public function index()
+    /**
+     * Render register view
+     * 
+     * @return void
+     */
+    public function index(): void
     {
         $this->res->renderView("pages.auth.register");
     }
 
-    public function register()
+    /**
+     * Handle register logic
+     * 
+     * @return void
+     */
+    public function register(): void
     {
         $this->db->begin();
         try {

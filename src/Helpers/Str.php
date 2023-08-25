@@ -31,6 +31,12 @@ final class Str
         return $randomString;
     }
 
+    /**
+     * Check is email
+     * 
+     * @param string $email
+     * @return bool
+     */
     public static function isEmail(string $email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);

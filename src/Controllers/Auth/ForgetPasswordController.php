@@ -13,14 +13,27 @@ use Src\Models\User\UserModel;
 
 class ForgetPasswordController extends BaseController
 {
+    /**
+     * Expired time in unix timestamp
+     */
     public const EXPIRED_AFTER = 1 * 24 * 60 * 60; // 1 day
 
-    public function forgetPassword()
+    /**
+     * Render forget password view
+     * 
+     * @return void
+     */
+    public function forgetPassword(): void
     {
         $this->res->renderView("pages.auth.password.forget");
     }
 
-    public function renderResetPasswordView()
+    /**
+     * Render reset password view
+     * 
+     * @return void
+     */
+    public function renderResetPasswordView(): void
     {
         $token_value = $this->req->getParams("token");
         if (empty($token_value)) {
@@ -52,7 +65,12 @@ class ForgetPasswordController extends BaseController
         }
     }
 
-    public function sendMailForgetPassword()
+    /**
+     * Send email forget password
+     * 
+     * @return void
+     */
+    public function sendMailForgetPassword(): void
     {
         $user_model = new UserModel();
         $user = $user_model->findOneByEmail($this->req->getInputs("email"));
@@ -63,7 +81,12 @@ class ForgetPasswordController extends BaseController
         $this->res->reload();
     }
 
-    public function resetPassword()
+    /**
+     * Handle reset password
+     * 
+     * @return void
+     */
+    public function resetPassword(): void
     {
         //
     }

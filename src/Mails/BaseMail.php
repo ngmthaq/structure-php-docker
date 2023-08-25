@@ -10,39 +10,89 @@ use stdClass;
 
 abstract class BaseMail extends stdClass
 {
+    /**
+     * PHPMailer instance
+     */
     protected PHPMailer $mailer;
 
+    /**
+     * Add addresses
+     * 
+     * @return array
+     */
     abstract protected function addAddresses(): array;
 
+    /**
+     * Add subject
+     * 
+     * @return string
+     */
     abstract protected function addSubject(): string;
 
+    /**
+     * Add body template
+     * 
+     * @return string
+     */
     abstract protected function addBody(): string;
 
+    /**
+     * Add body data
+     * 
+     * @return array
+     */
     protected function addBodyData(): array
     {
         return [];
     }
 
+    /**
+     * Add addresses
+     * 
+     * @return array
+     */
     protected function addReplyToAddresses(): array
     {
         return [];
     }
 
+    /**
+     * Add addresses
+     * 
+     * @return array
+     */
     protected function addCCAddresses(): array
     {
         return [];
     }
 
+    /**
+     * Add addresses
+     * 
+     * @return array
+     */
     protected function addBCCAddresses(): array
     {
         return [];
     }
 
+    /**
+     * Add attachments
+     * 
+     * @return array
+     */
     protected function addAttachments(): array
     {
         return [];
     }
 
+    /**
+     * Get mail body html
+     * 
+     * @param string $name
+     * @param array $data
+     * @return string
+     */
     protected function getMailBodyHtml(string $name, array $data): string
     {
         $cached_view_dir = Dir::getDirFromSrc("/Cached/Views");
@@ -65,6 +115,11 @@ abstract class BaseMail extends stdClass
         return $blade->run($name, $data);
     }
 
+    /**
+     * Send mail
+     * 
+     * @return void
+     */
     public function send(): void
     {
         // Config PHPMailer
