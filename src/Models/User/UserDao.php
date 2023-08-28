@@ -65,4 +65,15 @@ class UserDao extends BaseDao
         $stm = $this->db->execute();
         return isset($stm);
     }
+
+    public function changePassword(UserEntity $user): bool
+    {
+        $sql = "UPDATE `users` SET `password` = :password, `updated_at` = :updated_at WHERE `uid` = :uid";
+        $this->db->setSql($sql);
+        $this->db->setParam(":password", $user->password);
+        $this->db->setParam(":updated_at", DateTime::unixTimestamp(), PDO::PARAM_INT);
+        $this->db->setParam(":uid", $user->uid);
+        $stm = $this->db->execute();
+        return isset($stm);
+    }
 }

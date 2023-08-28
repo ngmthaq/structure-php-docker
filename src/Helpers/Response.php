@@ -126,4 +126,14 @@ final class Response
     {
         header("Refresh:0");
     }
+
+    /**
+     * Redirect back
+     * 
+     * @return void
+     */
+    public function redirectBack()
+    {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
 }

@@ -17,6 +17,7 @@ use Src\Middlewares\XsrfMiddleware;
 use Src\Validators\ForgetPasswordValidator;
 use Src\Validators\LoginValidator;
 use Src\Validators\RegisterValidator;
+use Src\Validators\ResetPasswordValidator;
 use Src\Validators\VerifyValidator;
 
 final class Routes extends Configs
@@ -187,6 +188,7 @@ final class Routes extends Configs
             "path" => "/password/reset",
             "controller" => ForgetPasswordController::class,
             "action" => "resetPassword",
+            "validator" => ResetPasswordValidator::class,
             "middlewares" => [GuestMiddleware::class],
         ]);
     }

@@ -42,4 +42,9 @@ class UserModel extends BaseModel
     {
         return $this->user_dao->verifyUser($user);
     }
+
+    public function changePassword(UserEntity $user)
+    {
+        return $this->user_dao->changePassword($user);
+    }
 }

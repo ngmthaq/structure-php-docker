@@ -6,12 +6,24 @@ use Src\Helpers\Str;
 use Src\Models\Token\TokenModel;
 use Src\Models\User\UserModel;
 
-class VerifyValidator extends BaseValidator
+class ResetPasswordValidator extends BaseValidator
 {
     protected function validate(): bool
     {
         $isValidated = true;
-        $token = $this->req->getParams("token");
+        $password = $this->req->getInputs("password");
+        $password_confirmation = $this->req->getInputs("password-confirmation");
+        $token = $this->req->getInputs("token");
+
+        if (empty($password)) {
+            $isValidated = false;
+            $this->setMessage("password", "Password is required");
+        }
+
+        if (empty($password_confirmation)) {
+            $isValidated = false;
+            $this->setMessage("password-confirmation", "Password confirmation is required");
+        }
 
         if (empty($token)) {
             $isValidated = false;
@@ -34,25 +46,16 @@ class VerifyValidator extends BaseValidator
                         $isValidated = false;
                         $this->setMessage("alert_error", "We cannot verify your account");
                         $token_model->delete($token_entity);
-                    } else {
-                        if ($user->email_verified_at) {
-                            $this->setMessage("alert_error", "Your email has verified before");
-                            $this->res->redirect("/login");
-                        }
                     }
                 }
             }
         }
 
-        return $isValidated;
-    }
-
-    protected function onFailure(): void
-    {
-        if ($this->req->getUser()) {
-            $this->res->redirect("/");
-        } else {
-            $this->res->redirect("/login");
+        if (isset($password) && isset($password_confirmation) && $password !== $password_confirmation) {
+            $isValidated = false;
+            $this->setMessage("password-confirmation", "Password confirmation is not match with password");
         }
+
+        return $isValidated;
     }
 }

@@ -45,7 +45,7 @@ abstract class BaseValidator extends BaseMiddleware
      */
     protected function onFailure(): void
     {
-        $this->res->reload();
+        $this->res->redirectBack();
         exit;
     }
 }
