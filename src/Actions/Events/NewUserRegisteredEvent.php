@@ -22,7 +22,7 @@ class NewUserRegisteredEvent extends BaseEvent
         ];
     }
 
-    public function channel()
+    public function channel(): string
     {
         return self::CHANNEL_DATABASE;
     }
